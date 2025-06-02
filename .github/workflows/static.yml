@@ -40,7 +40,7 @@ jobs:
       - name: Sync static content to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --delete
+          args: --delete
         env:
           AWS_S3_BUCKET: tirechain      # 替换成你的 S3 bucket 名称
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
