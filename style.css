@@ -71,12 +71,12 @@
     white-space: nowrap;
 }
 
-.finder-help {
+/* .finder-help {
     margin-top: 8px;
     font-size: 1rem;
     display: flex;
     align-items: center;
-}
+} */
 .info-bang {
     font-weight: bold;
     margin-right: 4px;
@@ -105,4 +105,64 @@
         width: 100%;
         font-size: 1.05rem;
     }
+}
+
+.finder-help {
+  margin-top: 8px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+  gap: 10px;
+}
+
+.info-bang-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: #22355a;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #fff;
+  font-size: 20px;
+  margin-right: 8px;
+  transition: background 0.2s, color 0.2s;
+  border: 2px solid #fff;
+}
+
+.help-link-text {
+  color: #fff;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+/* hover到任意部分都变黄色 */
+.finder-help:hover .info-bang-circle,
+.finder-help:hover .help-link-text {
+  color: #FFD700;
+  border-color: #FFD700;
+}
+
+/* 感叹号圈的背景也变深黄色（可选） */
+.finder-help:hover .info-bang-circle {
+  background: #392c00;
+}
+
+/* 弹窗图片样式 */
+.tire-size-popup {
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+}
+.tire-size-popup img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 6px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  display: block;
 }

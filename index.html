@@ -198,9 +198,12 @@
                             <input type="text" placeholder="Enter Tire Size">
                             <button type="submit">Find Chains</button>
                         </form>
-                        <div class="finder-help">
-                            <span class="info-bang">!</span>
-                            <a href="#" class="help-link">How do I find my tire size?</a>
+                        <div class="finder-help" id="finder-help">
+                            <span class="info-bang-circle">!</span>
+                            <span class="help-link-text">How do I find my tire size?</span>
+                        </div>
+                        <div class="tire-size-popup" id="tire-size-popup" style="display: none;">
+                            <img src="img/size chart.png" alt="Tire Size Guide" />
                         </div>
                     </div>
                 </div>
@@ -540,6 +543,19 @@
     <script src="js/classy-nav.min.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var helpRow = document.getElementById('finder-help');
+    var popup = document.getElementById('tire-size-popup');
+    var open = false;
+
+    helpRow.addEventListener('click', function() {
+        open = !open;
+        popup.style.display = open ? 'block' : 'none';
+    });
+    });
+    </script>
+
 
 </body>
 
