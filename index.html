@@ -17,26 +17,6 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-    @media (max-width: 600px) {
-        .chain-finder-box {
-            max-width: 95vw !important;
-            padding: 24px 5vw 24px 5vw !important;
-        }
-        .chain-finder-box form {
-            flex-direction: column !important;
-            gap: 12px !important;
-        }
-        .chain-finder-box input,
-        .chain-finder-box button {
-            width: 100% !important;
-            box-sizing: border-box;
-        }
-        .chain-finder-box button {
-            margin-left: 0 !important;
-        }
-    }
-    </style>
 
 </head>
 
@@ -205,35 +185,29 @@
 
     <!-- ##### Welcome Area Start ##### -->
     <section class="chain-finder-section" style="background-image: url('img/bg-img/bg-1.jpg'); background-size: cover; background-position: center; height: 500px; position: relative;">
-        <div class="chain-finder-overlay" style="background: rgba(0,0,0,0.3); position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+        <div class="chain-finder-overlay"></div>
         <div class="container h-100" style="position: relative; z-index: 2; height: 100%;">
             <div class="row h-100 align-items-center justify-content-start" style="height: 100%;">
                 <div class="col-lg-6 col-md-8 col-sm-12">
-                    <div class="chain-finder-box" style="
-                        background: #1a2b41;
-                        color: #fff;
-                        padding: 40px 30px 30px 30px;
-                        border-radius: 12px;
-                        box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-                        max-width: 500px;
-                        /* margin-left: auto; 这一行删掉或注释 */
-                        ">
-                        <h2 style="font-weight: 600; margin-bottom: 18px; font-size: 2.2rem; color: #d3d9e1;">Chain Finder</h2>
-                        <div style="margin-bottom: 18px; font-size: 1.16rem; color: #d3d9e1;">
+                    <div class="chain-finder-box">
+                        <h2>Chain Finder</h2>
+                        <div class="finder-desc">
                             Search by tire size to find the right chains for your vehicle.
                         </div>
-                        <form style="display: flex; gap: 14px; margin-bottom: 8px;">
-                            <input type="text" placeholder="Enter Tire Size" style="flex: 1 1 auto; padding: 12px 16px; border-radius: 6px; border: none; font-size: 1rem;">
-                            <button type="submit" style="background: #fff; color: #1a2b41; padding: 12px 22px; border-radius: 6px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer;">Find Chains</button>
+                        <form class="finder-form">
+                            <input type="text" placeholder="Enter Tire Size">
+                            <button type="submit">Find Chains</button>
                         </form>
-                        <div style="margin-top: 8px;">
-                            <a href="#" style="color: #f9d76f; font-size: 1rem; text-decoration: none;"><span style="font-weight: bold; margin-right: 4px;">&#33;</span>How do I find my tire size?</a>
+                        <div class="finder-help">
+                            <span class="info-bang">!</span>
+                            <a href="#" class="help-link">How do I find my tire size?</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
 
     <!-- ##### Welcome Area End ##### -->
