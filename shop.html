@@ -203,6 +203,24 @@
             <div class="row">
                 <div class="col-12 col-md-4 col-lg-3">
                     <div class="shop_sidebar_area">
+                        <!-- ##### Chain Finder Widget ##### -->
+                        <div class="widget chain-finder-widget mb-50">
+                            <h6 class="widget-title mb-30">Chain Finder</h6>
+                            <div class="finder-desc" style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                                Search by tire size to find the right chains for your vehicle.
+                            </div>
+                            <form class="finder-form" style="display: flex; gap: 6px;">
+                                <input type="text" placeholder="Enter Tire Size" style="flex: 1; padding: 6px 8px; border-radius: 4px; border: 1px solid #ccc;">
+                                <button type="submit" style="padding: 6px 16px; border-radius: 4px; border: none; background: #1f2d44; color: #fff;">Find Chains</button>
+                            </form>
+                            <div class="finder-help" id="finder-help" style="font-size: 12px; color: #888; margin-top: 6px; cursor: pointer;">
+                                <span class="info-bang-circle" style="font-weight: bold;">!</span>
+                                <span class="help-link-text">How do I find my tire size?</span>
+                            </div>
+                            <div class="tire-size-popup" id="tire-size-popup" style="display: none; margin-top: 6px;">
+                                <img src="img/size chart.png" alt="Tire Size Guide" style="max-width: 100%;" />
+                            </div>
+                        </div>
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget catagory mb-50">
@@ -713,6 +731,17 @@
     <script src="js/classy-nav.min.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const help = document.getElementById('finder-help');
+        const popup = document.getElementById('tire-size-popup');
+        if (help && popup) {
+            help.onclick = function () {
+                popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+    });
+    </script>
 
 </body>
 
