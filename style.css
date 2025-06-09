@@ -166,3 +166,11 @@
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   display: block;
 }
+
+.finder-box-bordered {
+    border: 1px solid #bbb;   /* 细实线 */
+    border-radius: 8px;
+    padding: 20px 18px;
+    background: #fff;
+    box-sizing: border-box;
+}
