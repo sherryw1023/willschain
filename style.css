@@ -19,7 +19,7 @@
 }
 
 .chain-finder-box {
-    background: #1a2b41;
+    background: rgba(26, 43, 65, 0.9);
     color: #fff;
     padding: 40px 30px 30px 30px;
     border-radius: 12px;
@@ -91,10 +91,29 @@
 }
 
 /* 移动端自适应 */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
+    .chain-finder-section,
+    .chain-finder-section .container,
+    .chain-finder-section .row,
+    .chain-finder-section [class^="col-"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* box自己宽度100%，两侧留呼吸空间（推荐12-18px） */
     .chain-finder-box {
-        padding: 20px 5vw 18px 5vw;
-        max-width: 98vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        border-radius: 0;
+        box-sizing: border-box;
+        padding-left: 16px;
+        padding-right: 16px;
     }
     .finder-form {
         flex-direction: column;
@@ -104,6 +123,18 @@
     .finder-form button {
         width: 100%;
         font-size: 1.05rem;
+    }
+    .tire-size-popup {
+        justify-content: center !important;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+    .tire-size-popup img {
+        display: block !important;
+        margin: 0 auto !important;
+        max-width: 95vw;
+        height: auto;
     }
 }
 
@@ -124,7 +155,7 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: #22355a;
+  background: rgba(26, 43, 65, 0.9);
   border-radius: 50%;
   font-weight: bold;
   color: #fff;
@@ -176,19 +207,38 @@
 }
 
 .chain-finder-section {
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('img/bg-img/willschain-bg-1.png');
     background-size: contain;
-    height: 500px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
     position: relative;
 }
 
-/* 小于768px（常见手机/小平板），用cover */
+/* 默认隐藏小屏图片 */
+.mobile-bg {
+    display: none;
+}
+
+
+/* 小屏切换：隐藏背景图，用 img 替代 */
 @media (max-width: 767px) {
     .chain-finder-section {
+        background-image: none;
         background-size: cover;
-        background-position: center;
-        height: 500px; 
-        position: relative;
+        height: auto;
+    }
+    .mobile-bg {
+        display: block;
+        margin-bottom: 0;  
+        padding-bottom: 0;
+        object-fit: cover;
+        height: auto;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
     }
 }
+
+
+
