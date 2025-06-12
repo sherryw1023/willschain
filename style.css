@@ -174,3 +174,16 @@
     background: #fff;
     box-sizing: border-box;
 }
+
+.chain-finder-section {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* 小于768px（常见手机/小平板），用cover */
+@media (max-width: 767px) {
+    .chain-finder-section {
+        background-size: cover;
+    }
+}
