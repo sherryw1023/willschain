@@ -1,0 +1,23 @@
+{
+  "categories": [
+    {
+      "name": "Passenger Cars",
+      "series": [
+        {
+          "name": "11CAM",
+          "description": "xxx",   
+          "products": [
+            {
+              "name": "1110CAM",
+              "sizes": [
+                "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+              ],
+              "dia": 4.4,
+              "weight": 3.9
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

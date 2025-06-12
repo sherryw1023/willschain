@@ -189,7 +189,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>dresses</h2>
+                        <h2 id="shop-title">All Tire Chains</h2>
                     </div>
                 </div>
             </div>
@@ -742,6 +742,35 @@
         }
     });
     </script>
+    <script>
+    // 分类代码和中文对照表
+    const catMap = {
+        "all": "All Tire Chains",
+        "passenger": "Passenger Cars",
+        "light_truck": "Light Truck & SUV",
+        "commercial": "Commercial Trucks",
+        "grader": "Loader/Grader",
+        "tractor": "Tractor",
+        "utility": "Industrial/Utility",
+        "atv": "ATV/UTV",
+        "forestry": "Forestry/Skidder",
+        "accessories": "Parts & Accessories"
+    };
+
+    // 获取 URL 参数
+    function getCategoryFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("cat") || "all";
+    }
+
+    // 设置标题
+    document.addEventListener("DOMContentLoaded", function () {
+        const cat = getCategoryFromUrl();
+        const title = catMap[cat] || "All Tire Chains";
+        document.getElementById("shop-title").innerText = title;
+    });
+    </script>
+
 
 </body>
 

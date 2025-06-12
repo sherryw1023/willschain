@@ -1,0 +1,27 @@
+{
+  "185/65R15": [
+    {
+      "product_name": "UltraGrip Model 1",
+      "series_name": "Series A",
+      "category_name": "Passenger Cars",
+      "description": "xxx",
+      "price": 49.99
+    },
+    {
+      "product_name": "EcoChain Basic",
+      "series_name": "Series B",
+      "category_name": "Passenger Cars",
+      "description": "...",
+      "price": 29.99
+    }
+  ],
+  "235/75R15": [
+    {
+      "product_name": "SUVMax Chain",
+      "series_name": "Heavy Duty Series",
+      "category_name": "Light Truck & SUV",
+      "description": "...",
+      "price": 69.99
+    }
+  ]
+}
