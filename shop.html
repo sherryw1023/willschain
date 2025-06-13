@@ -295,43 +295,7 @@
 
                         <div class="row">
 
-                            <!-- Single Product -->
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper">
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <img src="img/product-img/product-1.jpg" alt="">
-                                        <!-- Hover Thumb -->
-                                        <img class="hover-img" src="img/product-img/product-2.jpg" alt="">
-
-                                        <!-- Product Badge -->
-                                        <div class="product-badge offer-badge">
-                                            <span>-30%</span>
-                                        </div>
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart"></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <span>topshop</span>
-                                        <a href="single-product-details.html">
-                                            <h6>Knot Front Mini Dress</h6>
-                                        </a>
-                                        <p class="product-price"><span class="old-price">$75.00</span> $55.00</p>
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <!-- Single Product -->
                             <div class="col-12 col-sm-6 col-lg-4">
@@ -756,18 +720,86 @@
         "forestry": "Forestry/Skidder",
         "accessories": "Parts & Accessories"
     };
-
-    // 获取 URL 参数
     function getCategoryFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get("cat") || "all";
     }
+    // 1. 获取cat参数
+    const cat = getCategoryFromUrl();
+    const catName = catMap[cat] || "All Tire Chains";
 
-    // 设置标题
-    document.addEventListener("DOMContentLoaded", function () {
-        const cat = getCategoryFromUrl();
-        const title = catMap[cat] || "All Tire Chains";
-        document.getElementById("shop-title").innerText = title;
+    document.addEventListener('DOMContentLoaded', function () {
+        // 2. 设置标题
+        document.getElementById("shop-title").innerText = catName;
+
+        // 3. 获取数据并渲染
+        fetch('json/category.json')
+            .then(res => res.json())
+            .then(data => {
+                let series = [];
+                // 4. 找到对应category
+                if(cat === "all") {
+                    // 全部大类，所有category所有series所有product都渲染
+                    data.categories.forEach(category => {
+                        category.series.forEach(serie => {
+                            series.push({
+                                ...serie,
+                                category: category.category_name,
+                                series: serie.series_name,
+                                description: serie.description || '',
+                                image: serie.image
+                            });
+
+                        });
+                    });
+                } else {
+                    // 指定大类
+                    let category = data.categories.find(c => c.category_name === catName);
+                    if (category) {
+                        category.series.forEach(serie => {
+                            series.push({
+                                ...serie,
+                                category: category.category_name,
+                                series: serie.series_name,
+                                description: serie.description || '',
+                                image: serie.image
+                            });
+                        });
+                    }
+                }
+
+                // 5. 渲染到页面
+                const gridRow = document.querySelector('.shop_grid_product_area .row');
+                gridRow.innerHTML = ""; // 清空原有内容
+
+                if(series.length === 0) {
+                    gridRow.innerHTML = "<div class='col-12'><p style='text-align:center; margin:2em 0;'>No products found.</p></div>";
+                    return;
+                }
+
+                series.forEach(serie => {
+                    gridRow.innerHTML += `
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-product-wrapper">
+                            <div class="product-img">
+                                <a href="single-product-details.html">
+                                    <img src=${serie.image} alt="">
+                                </a>
+                            </div>
+                            <div class="product-description">
+                                <a href="single-product-details.html">
+                                    <h6>${serie.series}</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+            })
+            .catch(e => {
+                document.querySelector('.shop_grid_product_area .row').innerHTML =
+                    "<div class='col-12'><p style='text-align:center; margin:2em 0;'>Failed to load products.</p></div>";
+            });
     });
     </script>
 
@@ -775,3 +807,5 @@
 </body>
 
 </html>
+
+

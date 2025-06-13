@@ -1,19 +1,76 @@
 {
   "categories": [
     {
-      "name": "Passenger Cars",
+      "category_name": "Passenger Cars",
       "series": [
         {
-          "name": "11CAM",
+          "series_name": "11 Series",
           "description": "xxx",   
-          "products": [
+          "image": "img/product-img/11CAM/PNG/11_CAM_900.png",
+          "types": [
             {
-              "name": "1110CAM",
-              "sizes": [
-                "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
-              ],
-              "dia": 4.4,
-              "weight": 3.9
+              "type_name":"Type 11",
+              "products": [
+                {
+                  "product_name": "1110",
+                  "sizes": [
+                    "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"Type 11CAM",
+              "products": [
+                {
+                  "product_name": "1110CAM",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Light Truck & SUV",
+      "series": [
+        {
+          "series_name": "XKA",
+          "description": "xxx",   
+          "image": "img/product-img/11CAM/PNG/11_CAM_900.png",
+          "types": [
+            {
+              "type_name":"Type 11",
+              "products": [
+                {
+                  "product_name": "1110",
+                  "sizes": [
+                    "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"Type 11CAM",
+              "products": [
+                {
+                  "product_name": "1110CAM",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
             }
           ]
         }
