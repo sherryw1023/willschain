@@ -242,3 +242,88 @@
 
 
 
+
+.thumb-carousel-container {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+    gap: 8px;
+    width: 370px; /* 你要多宽自己调 */
+}
+
+.thumb-carousel-list {
+    display: flex;
+    overflow: hidden;
+    width: 240px; /* 3个缩略图，每个80px宽 */
+}
+
+.thumb-block {
+    width: 75px;
+    height: 75px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+.thumb-block.selected {
+    border: 2px solid #1f2d44;
+}
+
+.thumb-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-carousel-prev, .thumb-carousel-next {
+    background: #eee;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    font-size: 20px;
+    color: #1f2d44;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+.thumb-carousel-prev:disabled, .thumb-carousel-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#main-image-block {
+    width: 340px;
+    margin: 0 auto;
+}
+
+
+.carousel-arrow-btn {
+    background-color: #39639b;
+    color: #fafbfc;
+    border: none;
+    outline: none;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.carousel-arrow-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.carousel-arrow-btn svg {
+    display: block;
+}

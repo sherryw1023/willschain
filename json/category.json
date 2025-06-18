@@ -6,7 +6,7 @@
         {
           "series_name": "11 Series",
           "description": "xxx",   
-          "image": "img/product-img/11CAM/PNG/11_CAM_900.png",
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png", "img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png", "img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"Type 11",
@@ -44,7 +44,7 @@
         {
           "series_name": "XKA",
           "description": "xxx",   
-          "image": "img/product-img/11CAM/PNG/11_CAM_900.png",
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"Type 11",
