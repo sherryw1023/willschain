@@ -348,3 +348,24 @@
 .owl-carousel .owl-nav button.owl-prev { left: -22px; }
 .owl-carousel .owl-nav button.owl-next { right: -22px; }
 .owl-carousel .owl-nav button:focus { outline: none; }
+
+
+@media (max-width: 600px) {
+    #series-types-detail > div {
+        flex-direction: column !important;
+        align-items: center;
+        gap: 24px;
+    }
+    #series-types-detail .section-heading,
+    #series-types-detail h2 {
+        text-align: center !important;
+        font-size: 1.25rem !important;
+    }
+    #series-types-detail > div > div {
+    width: 90vw !important;
+    max-width: 340px;
+    margin: 0 auto;
+    }
+}
+
+/* 单个卡片在手机下宽度自适应，不要超过屏幕 */

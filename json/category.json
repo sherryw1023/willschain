@@ -6,10 +6,12 @@
         {
           "series_name": "11 Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png", "img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png", "img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png","img/product-img/11CAM/PNG/11 CAM BACK 900.png", "img/product-img/11CAM/PNG/11CAMs.png"],
           "types": [
             {
               "type_name":"Type 11",
+              "type_images":["img/product-img/11/11_900.png","img/product-img/11/11_FRONT 900.png","img/product-img/11/11_BACK 900.png", "img/product-img/11/11s.png"],
+              "type_description":"- MEET S.A.E. CLASS 'S' REQUIREMENTS;- DESIGNED FOR USE ON CARS WITH MINIMAL CLEARANCE",
               "products": [
                 {
                   "product_name": "1110",
@@ -23,9 +25,189 @@
             },
             {
               "type_name":"Type 11CAM",
+              "type_images":["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png","img/product-img/11CAM/PNG/11 CAM BACK 900.png", "img/product-img/11CAM/PNG/11CAMs.png"],
+              "type_description":"- CAM TIGHTENING SYSTEM;- MEET S.A.E. CLASS 'S' REQUIREMENTS;- DESIGNED FOR USE ON CARS WITH MINIMAL CLEARANCE",
               "products": [
                 {
                   "product_name": "1110CAM",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "series_name": "Classical Series",
+          "description": "xxx",   
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "types": [
+            {
+              "type_name":"KN12",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KN12 XXX",
+                  "sizes": [
+                    "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"KNN",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KNN xxx",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            },
+            {
+              "type_name":"HB7",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "HB7 xxx",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            },
+            {
+              "type_name":"KN7",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KN7 xxx",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "series_name": "K2 Series",
+          "description": "xxx",   
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "types": [
+            {
+              "type_name":"KNK12",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KNK12 XXX",
+                  "sizes": [
+                    "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"KNNK12",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KNNK12 xxx",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "series_name": "X Series",
+          "description": "xxx",   
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "types": [
+            {
+              "type_name":"KNX12",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KNX12 XXX",
+                  "sizes": [
+                    "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"KNNX",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "KNNX xxx",
+                  "sizes": [
+                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "series_name": "TSOCK Series",
+          "description": "xxx",   
+          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "types": [
+            {
+              "type_name":"TSOCK01",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "TSOCK01 XXX",
+                  "sizes": [
+                    "14512","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
+                  ],
+                  "dia": 4.4,
+                  "weight": 3.5
+                }
+              ]
+            },
+            {
+              "type_name":"TSOCK02",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
+              "products": [
+                {
+                  "product_name": "TSOCK02 xxx",
                   "sizes": [
                     "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
                   ],
@@ -47,28 +229,17 @@
           "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
-              "type_name":"Type 11",
+              "type_name":"XKA",
+              "type_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+              "type_description":"",
               "products": [
                 {
-                  "product_name": "1110",
+                  "product_name": "XKA xxx",
                   "sizes": [
                     "145R12","P145/80R12", "P165/70R12", "135R13", "P155/55R13"
                   ],
                   "dia": 4.4,
                   "weight": 3.5
-                }
-              ]
-            },
-            {
-              "type_name":"Type 11CAM",
-              "products": [
-                {
-                  "product_name": "1110CAM",
-                  "sizes": [
-                    "145R12","155R12","165/70R","145/80-12","145/70-13","135/80-13","135R13","155/65-13"
-                  ],
-                  "dia": 4.4,
-                  "weight": 3.9
                 }
               ]
             }

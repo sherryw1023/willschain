@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>Williams Chain</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -17,6 +17,8 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
 
 </head>
 
@@ -177,10 +179,26 @@
 
         <!-- Single Product Description -->
         <div class="single_product_desc clearfix">
-            <span>mango</span>
-            <h2>One Shoulder Glitter Midi Dress</h2>
+            <span></span>
+            <h2></h2>
             <!-- <p class="product-price"><span class="old-price">$65.00</span> $49.00</p> -->
-            <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
+            <div class="widget chain-finder-widget finder-box-bordered mb-50" style="margin-top:30px; max-width:450px; width:100%;">
+                <h6 class="widget-title mb-15">Chain Finder</h6>
+                <div class="finder-desc" style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                    Search by tire size to find the right chains for your vehicle.
+                </div>
+                <form class="finder-form" style="display: flex; gap: 6px;">
+                    <input type="text" placeholder="Enter Tire Size" style="flex: 2; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 15px;">
+                    <button type="submit" style="flex: none; padding: 5px 12px; border-radius: 4px; border: none; background: #1f2d44; color: #fff; font-weight: bold; font-size: 15px; ">Find</button>
+                </form>
+                <div class="finder-help" id="finder-help" style="font-size: 15px; color: #000; margin-top: 12px; cursor: pointer; display: flex; align-items: center;">
+                    <span class="info-bang-circle" style="display:inline-block; width:32px; height:32px; background:#1f2d44; color:#fff; border-radius:50%; text-align:center; line-height:32px; font-weight:bold; margin-right:8px;">!</span>
+                    <span class="help-link-text" style="color:#000; font-size: 13px;">How do I find my tire size?</span>
+                </div>
+                <div class="tire-size-popup" id="tire-size-popup" style="display: none; margin-top: 6px;">
+                    <img src="img/size chart.png" alt="Tire Size Guide" style="max-width: 50%;" />
+                </div>
+            </div>
 
             <!-- Form -->
             <!-- <form class="cart-form clearfix" method="post"> -->
@@ -212,6 +230,33 @@
         </div>
     </section>
     <!-- ##### Single Product Details Area End ##### -->
+
+    <!-- ====== Description/Product Intro Section Start ====== -->
+    <section class="series-intro-area" style="margin-bottom:40px;">
+        <div id="series-types-detail"></div>
+    </section>
+    <!-- ====== Description/Product Intro Section End ====== -->
+
+
+    <!-- ##### Related Products Area Start ##### -->
+    <section class="related_products_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Products Related to This Item</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="related-products-slides owl-carousel"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Related Products Area End ##### -->
+
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
@@ -278,7 +323,7 @@
                 </div>
             </div>
 
-<div class="row mt-5">
+            <div class="row mt-5">
                 <div class="col-md-12 text-center">
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -304,82 +349,93 @@
     <script src="js/classy-nav.min.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+
     
-
     <script>
-    // function getSeriesFromUrl() {
-    //     const params = new URLSearchParams(window.location.search);
-    //     return params.get("series") || "";
-    // }
+    function renderSeriesTypesDetail(targetSerie) {
+        const types = targetSerie.types || [];
+        const container = document.getElementById('series-types-detail');
+        if (!container) return;
+        container.innerHTML = '';
+        if (types.length === 0) return;
 
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const seriesName = decodeURIComponent(getSeriesFromUrl());
-    //     console.log(seriesName)
-    //     if (!seriesName) {
-    //         // 没有参数就提示
-    //         document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
-    //         return;
-    //     }
+        // 系列大标题
+        const section = document.createElement('div');
+        section.classList.add("section-heading", "text-center");
+        const title = document.createElement('h2');
+        title.textContent = (targetSerie.series_name || '').toUpperCase() + " CAR CHAIN";
+        container.style.display = 'flex';
+        container.style.flexDirection = 'column';
+        container.style.alignItems = 'center';
+        container.style.justifyContent = 'center';
 
-        // fetch('json/category.json')
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         let targetSerie = null;
-        //         let targetCategory = null;
-        //         for (const category of data.categories) {
-        //             for (const serie of category.series) {
-        //                 if (serie.series_name === seriesName) {
-        //                     targetSerie = serie;
-        //                     targetCategory = category.category_name;
-        //                     break;
-        //                 }
-        //             }
-        //             if (targetSerie) break;
-        //         }
-        //         if (!targetSerie) {
-        //             document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
-        //             return;
-        //         }
+        container.appendChild(title);
 
-        //         document.querySelector('.single_product_desc span').textContent = targetCategory || '';
-        //         document.querySelector('.single_product_desc h2').textContent = targetSerie.series_name;
-        //         document.querySelector('.single_product_desc .product-desc').textContent = targetSerie.description || '';
+        // 横排卡片区
+        const list = document.createElement('div');
+        list.style.display = 'flex';
+        list.style.justifyContent = types.length === 1 ? 'center' : 'flex-start';
+        list.style.alignItems = 'flex-start';
+        list.style.flexWrap = 'wrap';
+        list.style.gap = '40px';
+        container.appendChild(list);
 
-        //         const images = targetSerie.images;
-        //         let imgHtml = '';
-        //         images.forEach(img => {
-        //             imgHtml += `<img src="${img}" alt="">`;
-        //         });
-        //         const thumbWrapper = document.querySelector('.single_product_thumb');
-        //         if (thumbWrapper) {
-        //             thumbWrapper.innerHTML = `
-        //                 <div class="product_thumbnail_slides owl-carousel">
-        //                     ${imgHtml}
-        //                 </div>
-        //             `;
-        //             if (window.$ && $.fn.owlCarousel) {
-        //                 $('.product_thumbnail_slides').owlCarousel({
-        //                     items: 1,
-        //                     loop: true,
-        //                     nav: true,
-        //                     dots: false
-        //                 });
-        //             }
-        //         }
-    //         })
-    //         .catch(e => {
-    //             document.querySelector('.single_product_desc').innerHTML = "<h2>Failed to load details.</h2>";
-    //         });
-    // });
-    </script>
-    <script>
+        types.forEach(type => {
+            // 描述换行
+            const descList = (type.type_description || '')
+                .split(';')
+                .map(line => line.trim())
+                .filter(Boolean)
+                .map(line => `<div>${line}</div>`)
+                .join('');
+
+            // 卡片
+            const card = document.createElement('div');
+            card.style.display = 'flex';
+            card.style.flexDirection = 'column';
+            card.style.alignItems = 'center';
+            card.style.width = '340px';
+            card.style.maxWidth = '95vw';
+
+            // 图片
+            const img = document.createElement('img');
+            img.src = (type.type_images && type.type_images[0]) || '';
+            img.alt = type.type_name;
+            img.style.width = '280px';
+            img.style.height = '280px';
+            img.style.objectFit = 'contain';
+
+            // 文本区
+            const txt = document.createElement('div');
+            txt.style.background = '#f6f5f7';
+            txt.style.marginTop = '32px';
+            txt.style.textAlign = 'center';
+            txt.style.padding = '28px 12px';
+            txt.style.width = '100%';
+            txt.style.fontFamily = "'Montserrat', 'Arial', sans-serif";
+            txt.innerHTML = `<div style="font-size:1.75rem;letter-spacing:2px;margin-bottom:18px;">${type.type_name.replace(/^Type\s/i,'')}</div>
+                <div style="color:#555;font-size:1rem;line-height:1.9;letter-spacing:1px;">
+                    ${descList}
+                </div>`;
+            card.appendChild(img);
+            card.appendChild(txt);
+            list.appendChild(card);
+        });
+    }
+
     function getSeriesFromUrl() {
         const params = new URLSearchParams(window.location.search);
         return params.get("series") || "";
     }
+    function getCategoryFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("cat") || "";
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         const seriesName = decodeURIComponent(getSeriesFromUrl());
+        const catName = getCategoryFromUrl()
         if (!seriesName) {
             document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
             return;
@@ -408,7 +464,14 @@
                 // 填充标题描述
                 document.querySelector('.single_product_desc span').textContent = targetCategory || '';
                 document.querySelector('.single_product_desc h2').textContent = targetSerie.series_name;
-                document.querySelector('.single_product_desc .product-desc').textContent = targetSerie.description || '';
+
+                renderSeriesTypesDetail(targetSerie);
+
+                document.getElementById('finder-help').addEventListener('click', function() {
+                    const popup = document.getElementById('tire-size-popup');
+                    if (!popup) return;
+                    popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+                });
 
                 // 大图和缩略图区
                 const images = targetSerie.images || [];
@@ -460,20 +523,6 @@
                 };
 
                 // 左右箭头
-                // document.getElementById('thumb-carousel-prev').onclick = function() {
-                //     if (thumbStart > 0) {
-                //         thumbStart--;
-                //         renderThumbs();
-                //     }
-                // };
-                // document.getElementById('thumb-carousel-next').onclick = function() {
-                //     if (thumbStart + thumbCount < images.length) {
-                //         thumbStart++;
-                //         renderThumbs();
-                //     }
-                // };
-
-                // 左右箭头
                 document.getElementById('thumb-carousel-prev').onclick = function() {
                     if (currentIdx > 0) {
                         setMainImage(currentIdx - 1);
@@ -488,11 +537,104 @@
 
                 // 初始化
                 setMainImage(0);
+                // ==== Related Products OwlCarousel渲染 ====
+                (function showRelatedProductsOwl() {
+                    // 当前series/category变量需要你提前在作用域内有
+                    // 假设你已经有 let targetSerie, let targetCategory, let data
+                    if (!targetCategory || !targetSerie || !data) return;
+
+                    // 找同类，排除本身
+                    let related = [];
+                    for (const category of data.categories) {
+                        if (category.category_name === targetCategory) {
+                            related = category.series.filter(
+                                s => s.series_name !== targetSerie.series_name && s.images && s.images[0]
+                            );
+                            break;
+                        }
+                    }
+                    // 最多8个
+                    related = related.slice(0, 4);
+
+                    const container = document.querySelector('.related-products-slides');
+                    if (!container) return;
+
+                    if (!related.length) {
+                        container.innerHTML = '<div style="color:#999;text-align:center">No related products.</div>';
+                        return;
+                    }
+
+                    // 跟主页一样的单品卡片
+                    let html = '';
+                    related.forEach(item => {
+                        const cat = encodeURIComponent(targetCategory);  // 你可以用 catMap，如果有对应cat的英文url
+                        html += `
+                            <div class="single-product-wrapper">
+                                <div class="product-img">
+                                    <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
+                                        <img src="${item.images[0]}" alt="${item.series_name}" style="width:180px;height:180px;object-fit:contain;">
+                                    </a>
+                                </div>
+                                <div class="product-description">
+                                    <span>${targetCategory}</span>
+                                    <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
+                                        <h6>${item.series_name}</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+
+                    // 初始化owlCarousel
+                    if (window.$ && $(container).owlCarousel) {
+                        $(container).owlCarousel('destroy');
+                        $(container).owlCarousel({
+                            items: 4,
+                            loop: false,
+                            nav: true,
+                            dots: false,
+                            margin: 30,
+                            responsive: {
+                                0: { items: 1 },
+                                600: { items: 2 },
+                                1000: { items: 4 }
+                            }
+                        });
+                    }
+                })();
+
+
             })
             .catch(e => {
                 document.querySelector('.single_product_desc').innerHTML = "<h2>Failed to load details.</h2>";
             });
     });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 搜索功能
+        const finderForm = document.querySelector('.finder-form');
+        if (finderForm) {
+            finderForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const input = finderForm.querySelector('input[type="text"]');
+                const searchValueRaw = input.value.trim();
+                if (!searchValueRaw) {
+                    alert("Please enter a tire size!");
+                    return;
+                }
+                // 只保留数字，去掉非数字字符
+                const searchValueNum = searchValueRaw.replace(/\D/g, "");
+
+                if (!searchValueNum) {
+                    alert("Please enter a valid tire size!");
+                    return;
+                }
+                window.location.href = "filtered-shop.html?size=" + encodeURIComponent(searchValueRaw);
+            })
+        }
+    })
     </script>
 
 

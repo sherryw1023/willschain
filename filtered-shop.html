@@ -189,7 +189,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2 id="shop-title">All Tire Chains</h2>
+                        <h2 id="shop-title">Tire Chain Search Results</h2>
                     </div>
                 </div>
             </div>
@@ -455,104 +455,91 @@
     });
     </script>
     <script>
-    // 分类代码和中文对照表
     const catMap = {
-        "all": "All Tire Chains",
-        "passenger": "Passenger Cars",
-        "light_truck": "Light Truck & SUV",
-        "commercial": "Commercial Trucks",
-        "grader": "Loader/Grader",
-        "tractor": "Tractor",
-        "utility": "Industrial/Utility",
-        "atv": "ATV/UTV",
-        "forestry": "Forestry/Skidder",
-        "accessories": "Parts & Accessories"
+        "All Tire Chains": "all",
+        "Passenger Cars": "passenger",
+        "Light Truck & SUV": "light_truck",
+        "Commercial Trucks": "commercial",
+        "Loader/Grader": "grader",
+        "Tractor": "tractor",
+        "Industrial/Utility": "utility",
+        "ATV/UTV": "atv",
+        "Forestry/Skidder": "forestry",
+        "Parts & Accessories": "accessories"
     };
-    function getCategoryFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get("cat") || "";
-    }
-    // 1. 获取cat参数
-    const cat = getCategoryFromUrl();
-    const catName = catMap[cat] || "";
-
     document.addEventListener('DOMContentLoaded', function () {
-        // 2. 设置标题
-        document.getElementById("shop-title").innerText = catName;
+        // 1. 取URL参数
+        const params = new URLSearchParams(window.location.search);
+        const searchValueRaw = params.get('size') || "";
+        const searchValueNum = searchValueRaw.replace(/\D/g, "");
 
-        // 3. 获取数据并渲染
+
+        // 2. fetch 并过滤
         fetch('json/category.json')
             .then(res => res.json())
             .then(data => {
-                let series = [];
-                // 4. 找到对应category
-                if(cat === "all") {
-                    // 全部大类，所有category所有series所有product都渲染
-                    data.categories.forEach(category => {
-                        category.series.forEach(serie => {
-                            series.push({
-                                ...serie,
-                                category: category.category_name,
-                                series: serie.series_name,
-                                description: serie.description || '',
-                                image: serie.images[0]
+                let resultProducts = [];
+                data.categories.forEach(category => {
+                    category.series.forEach(serie => {
+                        const serieImg = (serie.images && serie.images.length) ? serie.images[0] : "";
+                        serie.types.forEach(type => {
+                            type.products.forEach(product => {
+                                if (product.sizes.some(sz => sz.replace(/\D/g, "") === searchValueNum)) {
+                                    resultProducts.push({
+                                        product_name: product.product_name,
+                                        sizes: product.sizes,
+                                        dia: product.dia,
+                                        weight: product.weight,
+                                        type_name: type.type_name,
+                                        series_name: serie.series_name,
+                                        category_name: category.category_name,
+                                        image: serieImg
+                                    });
+                                }
                             });
-
                         });
                     });
-                } else {
-                    // 指定大类
-                    let category = data.categories.find(c => c.category_name === catName);
-                    if (category) {
-                        category.series.forEach(serie => {
-                            series.push({
-                                ...serie,
-                                category: category.category_name,
-                                series: serie.series_name,
-                                description: serie.description || '',
-                                image: serie.images[0]
-                            });
-                        });
-                    }
-                }
-                
+                });
 
-                // 5. 渲染到页面
                 const gridRow = document.getElementById('series-grid');
-                gridRow.innerHTML = ""; // 清空原有内容
+                gridRow.innerHTML = "";
 
-                if(series.length === 0) {
+                if (resultProducts.length === 0) {
                     document.getElementById("series-count").innerText = "No";
+                    gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for tire size <b>${searchValueRaw}</b>.</p></div>`;
                     return;
                 } else {
-                    document.getElementById("series-count").innerText = series.length;
+                    document.getElementById("series-count").innerText = resultProducts.length;
                 }
 
-                series.forEach(serie => {
-                    const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(serie.series)}`;
+                resultProducts.forEach(prod => {
+                    cat = catMap[prod.category_name]
+                    const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series_name)}`;
                     gridRow.innerHTML += `
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-product-wrapper">
                             <div class="product-img">
-                                <a href=${detailUrl}>
-                                    <img src=${serie.image} alt="">
+                                <a href="${detailUrl}">
+                                    <img src="${prod.image}" alt="">
                                 </a>
                             </div>
                             <div class="product-description">
-                                <a href=${detailUrl}>
-                                    <h6>${serie.series}</h6>
+                                <a href="${detailUrl}">
+                                    <h6>${prod.product_name} - ${prod.series_name}</h6>
                                 </a>
+                                <div style="font-size:13px;">${prod.type_name}</div>
                             </div>
                         </div>
                     </div>
                     `;
                 });
             })
-            .catch(e => {
-                document.querySelector('.shop_grid_product_area .row').innerHTML =
-                    "<div class='col-12'><p style='text-align:center; margin:2em 0;'>Failed to load products.</p></div>";
+            .catch(err => {
+                document.getElementById('series-grid').innerHTML =
+                    "<div class='col-12'><p style='text-align:center; margin:2em 0;'>Failed to search products.</p></div>";
             });
     });
+
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -579,7 +566,6 @@
         }
     })
     </script>
-
 
 </body>
 

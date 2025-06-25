@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>Williams Chain</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -543,6 +543,31 @@
                 container.innerHTML = '<div style="color:#a00;text-align:center">Failed to load products.</div>';
             });
     });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 搜索功能
+        const finderForm = document.querySelector('.finder-form');
+        if (finderForm) {
+            finderForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const input = finderForm.querySelector('input[type="text"]');
+                const searchValueRaw = input.value.trim();
+                if (!searchValueRaw) {
+                    alert("Please enter a tire size!");
+                    return;
+                }
+                // 只保留数字，去掉非数字字符
+                const searchValueNum = searchValueRaw.replace(/\D/g, "");
+
+                if (!searchValueNum) {
+                    alert("Please enter a valid tire size!");
+                    return;
+                }
+                window.location.href = "filtered-shop.html?size=" + encodeURIComponent(searchValueRaw);
+            })
+        }
+    })
     </script>
 
 
