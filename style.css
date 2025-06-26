@@ -367,3 +367,31 @@
     margin: 0 auto;
     }
 }
+
+@media (max-width: 600px) {
+  .type-detail-section .slide-img-wrapper,
+  .type-detail-section .slide-img-wrapper img {
+    width: 90vw !important;
+    height: 90vw !important;
+    max-width: 98vw;
+    max-height: 98vw;
+    min-width: 180px;
+    min-height: 180px;
+  }
+  .type-detail-section > div[style*="max-width: 1100px"] {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  .type-detail-section img[style*="width: 380px"] {
+    width: 25vw !important;
+    height: 25vw !important;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 80px;
+    max-height: 80px;
+  }
+}
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
