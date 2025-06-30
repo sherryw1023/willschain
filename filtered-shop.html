@@ -514,7 +514,7 @@
 
                 resultProducts.forEach(prod => {
                     cat = catMap[prod.category_name]
-                    const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series_name)}`;
+                    const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series_name)}&type=${encodeURIComponent(prod.type_name)}&product=${encodeURIComponent(prod.product_name)}`;
                     gridRow.innerHTML += `
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-product-wrapper">

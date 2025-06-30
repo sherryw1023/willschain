@@ -181,6 +181,7 @@
         <div class="single_product_desc clearfix">
             <span></span>
             <h2></h2>
+            <h4></h4>
             <!-- <p class="product-price"><span class="old-price">$65.00</span> $49.00</p> -->
             <div class="widget chain-finder-widget finder-box-bordered mb-50" style="margin-top:30px; max-width:450px; width:100%;">
                 <h6 class="widget-title mb-15">Chain Finder</h6>
@@ -605,10 +606,20 @@
         const params = new URLSearchParams(window.location.search);
         return params.get("cat") || "";
     }
+    function getTypeFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("type") || "";
+    }
+    function getProductFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("product") || "";
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         const seriesName = decodeURIComponent(getSeriesFromUrl());
         const catName = getCategoryFromUrl()
+        const typeName = decodeURIComponent(getTypeFromUrl());
+        const productName = decodeURIComponent(getProductFromUrl());
         if (!seriesName) {
             document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
             return;
@@ -638,8 +649,31 @@
                 document.querySelector('.single_product_desc span').textContent = targetCategory || '';
                 document.querySelector('.single_product_desc h2').textContent = targetSerie.series_name;
 
-                renderSeriesTypesDetail(targetSerie);
-                renderSeriesTypesExtraDetail(targetSerie);
+                if (typeName && productName) {
+                    document.querySelector('.single_product_desc h2').textContent = getProductFromUrl()+" - "+targetSerie.series_name;
+                    document.querySelector('.single_product_desc h4').textContent = getTypeFromUrl();
+                    // 隐藏series-types-detail部分
+                    document.getElementById('series-types-detail').style.display = 'none';
+                    // 只渲染对应type
+                    const targetType = (targetSerie.types || []).find(
+                        t => t.type_name === typeName
+                    );
+                    if (targetType) {
+                        // 用一个假的targetSerie，只包含这一个type
+                        renderSeriesTypesExtraDetail({
+                            ...targetSerie,
+                            types: [targetType]
+                        });
+                    } else {
+                        // 没有该type
+                        document.getElementById('series-types-extra-detail').innerHTML =
+                            '<div style="color:#a00;text-align:center">No details for this type.</div>';
+                    }
+                } else {
+                    document.getElementById('series-types-detail').style.display = '';
+                    renderSeriesTypesDetail(targetSerie);
+                    renderSeriesTypesExtraDetail(targetSerie);
+                }
 
                 document.getElementById('finder-help').addEventListener('click', function() {
                     const popup = document.getElementById('tire-size-popup');
