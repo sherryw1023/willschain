@@ -6,7 +6,7 @@
         {
           "series_name": "11 Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png","img/product-img/11CAM/PNG/11 CAM BACK 900.png", "img/product-img/11CAM/PNG/11CAMs.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png","img/product-img/11CAM/PNG/11 CAM BACK 900.png", "img/product-img/11CAM/PNG/11CAMs.png"],
           "types": [
             {
               "type_name":"Type 11",
@@ -43,7 +43,7 @@
         {
           "series_name": "Classical Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"KN12",
@@ -110,7 +110,7 @@
         {
           "series_name": "K2 Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"KNK12",
@@ -147,7 +147,7 @@
         {
           "series_name": "X Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"KNX12",
@@ -184,7 +184,7 @@
         {
           "series_name": "TSOCK Series",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"TSOCK01",
@@ -226,7 +226,7 @@
         {
           "series_name": "XKA",
           "description": "xxx",   
-          "images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
+          "series_images": ["img/product-img/11CAM/PNG/11_CAM_900.png","img/product-img/11CAM/PNG/11_CAM_FRONT_900.png"],
           "types": [
             {
               "type_name":"XKA",

@@ -532,7 +532,8 @@
         container.innerHTML = '<div style="color:#999;text-align:center">Loading...</div>';
 
         // 2. 加载 JSON
-        fetch('json/category.json')
+        //'https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-products'
+        fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-products')
             .then(res => res.json())
             .then(data => {
                 let serieslist = [];
@@ -544,7 +545,7 @@
                             category: category.category_name,
                             series_name: serie.series_name,
                             description: serie.description || '',
-                            image: serie.images[0],
+                            image: serie.series_images[0],
                             cat: catMap[category.category_name]
                         });
                     });

@@ -472,30 +472,27 @@
         const params = new URLSearchParams(window.location.search);
         const searchValueRaw = params.get('size') || "";
         const searchValueNum = searchValueRaw.replace(/\D/g, "");
+        console.log(searchValueNum)
 
 
         // 2. fetch 并过滤
-        fetch('json/category.json')
+        fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-filtered-data?size=' + encodeURIComponent(searchValueNum))
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 let resultProducts = [];
                 data.categories.forEach(category => {
                     category.series.forEach(serie => {
-                        const serieImg = (serie.images && serie.images.length) ? serie.images[0] : "";
+                        const serieImg = (serie.series_images && serie.series_images.length) ? serie.series_images[0] : "";
                         serie.types.forEach(type => {
                             type.products.forEach(product => {
-                                if (product.sizes.some(sz => sz.replace(/\D/g, "") === searchValueNum)) {
-                                    resultProducts.push({
-                                        product_name: product.product_name,
-                                        sizes: product.sizes,
-                                        dia: product.dia,
-                                        weight: product.weight,
-                                        type_name: type.type_name,
-                                        series_name: serie.series_name,
-                                        category_name: category.category_name,
-                                        image: serieImg
-                                    });
-                                }
+                                resultProducts.push({
+                                    product_name: product.product_name,
+                                    type_name: type.type_name,
+                                    series_name: serie.series_name,
+                                    category_name: category.category_name,
+                                    image: type.type_images[0]
+                                })
                             });
                         });
                     });
@@ -518,17 +515,15 @@
                     gridRow.innerHTML += `
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-product-wrapper">
-                            <div class="product-img">
-                                <a href="${detailUrl}">
+                            <a href="${detailUrl}">
+                                <div class="product-img">
                                     <img src="${prod.image}" alt="">
-                                </a>
-                            </div>
-                            <div class="product-description">
-                                <a href="${detailUrl}">
+                                </div>
+                                <div class="product-description">
                                     <h6>${prod.product_name} - ${prod.series_name}</h6>
-                                </a>
-                                <div style="font-size:13px;">${prod.type_name}</div>
-                            </div>
+                                    <div style="font-size:13px;">${prod.type_name}</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     `;

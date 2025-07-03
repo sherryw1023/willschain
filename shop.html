@@ -481,40 +481,22 @@
         document.getElementById("shop-title").innerText = catName;
 
         // 3. 获取数据并渲染
-        fetch('json/category.json')
+        fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-products?category=' + encodeURIComponent(catName))
             .then(res => res.json())
             .then(data => {
                 let series = [];
-                // 4. 找到对应category
-                if(cat === "all") {
-                    // 全部大类，所有category所有series所有product都渲染
-                    data.categories.forEach(category => {
-                        category.series.forEach(serie => {
-                            series.push({
-                                ...serie,
-                                category: category.category_name,
-                                series: serie.series_name,
-                                description: serie.description || '',
-                                image: serie.images[0]
-                            });
+                data.categories.forEach(category => {
+                    category.series.forEach(serie => {
+                        series.push({
+                            ...serie,
+                            category: category.category_name,
+                            series: serie.series_name,
+                            description: serie.description || '',
+                            image: serie.series_images[0]
+                        });
 
-                        });
                     });
-                } else {
-                    // 指定大类
-                    let category = data.categories.find(c => c.category_name === catName);
-                    if (category) {
-                        category.series.forEach(serie => {
-                            series.push({
-                                ...serie,
-                                category: category.category_name,
-                                series: serie.series_name,
-                                description: serie.description || '',
-                                image: serie.images[0]
-                            });
-                        });
-                    }
-                }
+                });
                 
 
                 // 5. 渲染到页面
@@ -533,16 +515,14 @@
                     gridRow.innerHTML += `
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-product-wrapper">
-                            <div class="product-img">
-                                <a href=${detailUrl}>
+                            <a href=${detailUrl}>
+                                <div class="product-img">
                                     <img src=${serie.image} alt="">
-                                </a>
-                            </div>
-                            <div class="product-description">
-                                <a href=${detailUrl}>
+                                </div>
+                                <div class="product-description">
                                     <h6>${serie.series}</h6>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     `;

@@ -625,21 +625,16 @@
             return;
         }
 
-        fetch('json/category.json')
+        let url = 'https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-type?series_name=' + encodeURIComponent(seriesName);
+        if(typeName) url += '&type_name=' + typeName;
+        if(productName) url += '&product_name=' + productName;
+        fetch(url)
             .then(res => res.json())
             .then(data => {
-                let targetSerie = null;
-                let targetCategory = null;
-                for (const category of data.categories) {
-                    for (const serie of category.series) {
-                        if (serie.series_name === seriesName) {
-                            targetSerie = serie;
-                            targetCategory = category.category_name;
-                            break;
-                        }
-                    }
-                    if (targetSerie) break;
-                }
+                console.log(data); 
+                const category = data.categories[0];
+                const targetSerie = category.series[0];
+                const targetCategory = category.category_name;
                 if (!targetSerie) {
                     document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
                     return;
@@ -682,7 +677,18 @@
                 });
 
                 // 大图和缩略图区
-                const images = targetSerie.images || [];
+                let images = [];
+                if (typeName && productName) {
+                    // 找到当前type
+                    const targetType = (targetSerie.types || []).find(t => t.type_name === typeName);
+                    if (targetType) {
+                        images = targetType.type_images || [];
+                    }
+                }
+                if (!images.length) {
+                    // 兜底用series_images
+                    images = targetSerie.series_images || [];
+                }
                 let currentIdx = 0;
                 let thumbStart = 0;
                 const thumbCount = 3;
@@ -756,7 +762,7 @@
                     for (const category of data.categories) {
                         if (category.category_name === targetCategory) {
                             related = category.series.filter(
-                                s => s.series_name !== targetSerie.series_name && s.images && s.images[0]
+                                s => s.series_name !== targetSerie.series_name && s.series_images && s.series_images[0]
                             );
                             break;
                         }
@@ -780,7 +786,7 @@
                             <div class="single-product-wrapper">
                                 <div class="product-img">
                                     <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
-                                        <img src="${item.images[0]}" alt="${item.series_name}" style="width:180px;height:180px;object-fit:contain;">
+                                        <img src="${item.series_images[0]}" alt="${item.series_name}" style="width:180px;height:180px;object-fit:contain;">
                                     </a>
                                 </div>
                                 <div class="product-description">
