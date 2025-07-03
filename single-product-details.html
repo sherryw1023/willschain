@@ -615,6 +615,19 @@
         return params.get("product") || "";
     }
 
+    const catMap = {
+        "all": "All Tire Chains",
+        "passenger": "Passenger Cars",
+        "light_truck": "Light Truck & SUV",
+        "commercial": "Commercial Trucks",
+        "grader": "Loader/Grader",
+        "tractor": "Tractor",
+        "utility": "Industrial/Utility",
+        "atv": "ATV/UTV",
+        "forestry": "Forestry/Skidder",
+        "accessories": "Parts & Accessories"
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
         const seriesName = decodeURIComponent(getSeriesFromUrl());
         const catName = getCategoryFromUrl()
@@ -751,78 +764,70 @@
 
                 // 初始化
                 setMainImage(0);
-                // ==== Related Products OwlCarousel渲染 ====
-                (function showRelatedProductsOwl() {
-                    // 当前series/category变量需要你提前在作用域内有
-                    // 假设你已经有 let targetSerie, let targetCategory, let data
-                    if (!targetCategory || !targetSerie || !data) return;
-
-                    // 找同类，排除本身
-                    let related = [];
-                    for (const category of data.categories) {
-                        if (category.category_name === targetCategory) {
-                            related = category.series.filter(
-                                s => s.series_name !== targetSerie.series_name && s.series_images && s.series_images[0]
-                            );
-                            break;
-                        }
-                    }
-                    // 最多8个
-                    related = related.slice(0, 4);
-
-                    const container = document.querySelector('.related-products-slides');
-                    if (!container) return;
-
-                    if (!related.length) {
-                        container.innerHTML = '<div style="color:#999;text-align:center">No related products.</div>';
-                        return;
-                    }
-
-                    // 跟主页一样的单品卡片
-                    let html = '';
-                    related.forEach(item => {
-                        const cat = encodeURIComponent(targetCategory);  // 你可以用 catMap，如果有对应cat的英文url
-                        html += `
-                            <div class="single-product-wrapper">
-                                <div class="product-img">
-                                    <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
-                                        <img src="${item.series_images[0]}" alt="${item.series_name}" style="width:180px;height:180px;object-fit:contain;">
-                                    </a>
-                                </div>
-                                <div class="product-description">
-                                    <span>${targetCategory}</span>
-                                    <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
-                                        <h6>${item.series_name}</h6>
-                                    </a>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    container.innerHTML = html;
-
-                    // 初始化owlCarousel
-                    if (window.$ && $(container).owlCarousel) {
-                        $(container).owlCarousel('destroy');
-                        $(container).owlCarousel({
-                            items: 4,
-                            loop: false,
-                            nav: true,
-                            dots: false,
-                            margin: 30,
-                            responsive: {
-                                0: { items: 1 },
-                                600: { items: 2 },
-                                1000: { items: 4 }
-                            }
-                        });
-                    }
-                })();
-
+                
 
             })
             .catch(e => {
                 document.querySelector('.single_product_desc').innerHTML = "<h2>Failed to load details.</h2>";
             });
+            
+
+        url = 'https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-preferred-series?category_name=' + encodeURIComponent(catMap[catName]) + '&exclude_series_name=' + seriesName;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            
+            related = (data.series || []).slice(0, 4);
+            console.log(related);
+
+            const container = document.querySelector('.related-products-slides');
+            if (!container) return;
+
+            if (!related.length) {
+                container.innerHTML = '<div style="color:#999;text-align:center">No related products.</div>';
+                return;
+            }
+
+            // 跟主页一样的单品卡片
+            let html = '';
+            related.forEach(item => {
+                const cat = encodeURIComponent(catName);  // 你可以用 catMap，如果有对应cat的英文url
+                html += `
+                    <div class="single-product-wrapper">
+                        <div class="product-img">
+                            <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
+                                <img src="${item.series_images[0]}" alt="${item.series_name}" style="width:180px;height:180px;object-fit:contain;">
+                            </a>
+                        </div>
+                        <div class="product-description">
+                            <span>${catName}</span>
+                            <a href="single-product-details.html?cat=${cat}&series=${encodeURIComponent(item.series_name)}">
+                                <h6>${item.series_name}</h6>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // 初始化owlCarousel
+            if (window.$ && $(container).owlCarousel) {
+                $(container).owlCarousel('destroy');
+                $(container).owlCarousel({
+                    items: 4,
+                    loop: false,
+                    nav: true,
+                    dots: false,
+                    margin: 30,
+                    responsive: {
+                        0: { items: 1 },
+                        600: { items: 2 },
+                        1000: { items: 4 }
+                    }
+                });
+            }
+        });
+
     });
     </script>
     <script>
