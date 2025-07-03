@@ -472,14 +472,13 @@
         const params = new URLSearchParams(window.location.search);
         const searchValueRaw = params.get('size') || "";
         const searchValueNum = searchValueRaw.replace(/\D/g, "");
-        console.log(searchValueNum)
 
 
         // 2. fetch 并过滤
         fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-filtered-data?size=' + encodeURIComponent(searchValueNum))
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 let resultProducts = [];
                 data.categories.forEach(category => {
                     category.series.forEach(serie => {

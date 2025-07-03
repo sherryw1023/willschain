@@ -484,7 +484,7 @@
         fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-products?category=' + encodeURIComponent(catName))
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 let series = [];
                 data.categories.forEach(category => {
                     category.series.forEach(serie => {
