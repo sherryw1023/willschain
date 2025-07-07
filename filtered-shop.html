@@ -197,6 +197,10 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
+    <div id="loading-indicator" style="text-align:center; margin:3em 0; display:none;">
+        <span style="font-size:2rem;">Loading...</span>
+    </div>
+
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
         <div class="container">
@@ -337,13 +341,13 @@
                     <!-- Pagination -->
                     <nav aria-label="navigation">
                         <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+                            <!-- <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item"><a class="page-link" href="#">...</a></li>
                             <li class="page-item"><a class="page-link" href="#">21</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li> -->
                         </ul>
                     </nav>
                 </div>
@@ -467,19 +471,39 @@
         "Forestry/Skidder": "forestry",
         "Parts & Accessories": "accessories"
     };
+
     document.addEventListener('DOMContentLoaded', function () {
         // 1. 取URL参数
         const params = new URLSearchParams(window.location.search);
         const searchValueRaw = params.get('size') || "";
         const searchValueNum = searchValueRaw.replace(/\D/g, "");
 
+        // 分页参数
+        let resultProducts = [];
+        const pageSize = 12;
+        let currentPage = 1;
 
-        // 2. fetch 并过滤
+        const loadingDiv = document.getElementById('loading-indicator');
+        const gridRow = document.getElementById('series-grid');
+
+        // 页面一加载，显示loading，隐藏产品区
+        loadingDiv.style.display = '';
+        gridRow.style.display = 'none';
+        // fetch 并过滤
         fetch('https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-filtered-data?size=' + encodeURIComponent(searchValueNum))
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
-                let resultProducts = [];
+                resultProducts = [];
+                // 检查categories是否存在且有内容
+                if (!data.categories || !Array.isArray(data.categories) || data.categories.length === 0) {
+                    // 查无数据，也不是接口异常
+                    loadingDiv.style.display = 'none';
+                    gridRow.style.display = '';
+                    document.getElementById("series-count").innerText = 0;
+                    gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for tire size <b>${searchValueRaw}</b>.</p></div>`;
+                    renderPagination();
+                    return;
+                }
                 data.categories.forEach(category => {
                     category.series.forEach(serie => {
                         const serieImg = (serie.series_images && serie.series_images.length) ? serie.series_images[0] : "";
@@ -491,50 +515,129 @@
                                     series_name: serie.series_name,
                                     category_name: category.category_name,
                                     image: type.type_images[0]
-                                })
+                                });
                             });
                         });
                     });
                 });
-
-                const gridRow = document.getElementById('series-grid');
-                gridRow.innerHTML = "";
-
-                if (resultProducts.length === 0) {
-                    document.getElementById("series-count").innerText = "No";
-                    gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for tire size <b>${searchValueRaw}</b>.</p></div>`;
-                    return;
-                } else {
-                    document.getElementById("series-count").innerText = resultProducts.length;
-                }
-
-                resultProducts.forEach(prod => {
-                    cat = catMap[prod.category_name]
-                    const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series_name)}&type=${encodeURIComponent(prod.type_name)}&product=${encodeURIComponent(prod.product_name)}`;
-                    gridRow.innerHTML += `
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="single-product-wrapper">
-                            <a href="${detailUrl}">
-                                <div class="product-img">
-                                    <img src="${prod.image}" alt="">
-                                </div>
-                                <div class="product-description">
-                                    <h6>${prod.product_name} - ${prod.series_name}</h6>
-                                    <div style="font-size:13px;">${prod.type_name}</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    `;
-                });
+                loadingDiv.style.display = 'none';
+                gridRow.style.display = '';
+                renderPage(1);
             })
             .catch(err => {
-                document.getElementById('series-grid').innerHTML =
-                    "<div class='col-12'><p style='text-align:center; margin:2em 0;'>Failed to search products.</p></div>";
+                loadingDiv.innerHTML = '<span style="color:red;">Failed to load products.</span>';
+                gridRow.style.display = '';
             });
-    });
 
+        function renderPage(page) {
+            currentPage = page;
+            const gridRow = document.getElementById('series-grid');
+            gridRow.innerHTML = "";
+
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+            const pageProducts = resultProducts.slice(start, end);
+
+            if (resultProducts.length === 0) {
+                document.getElementById("series-count").innerText = 0;
+                gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for tire size <b>${searchValueRaw}</b>.</p></div>`;
+                renderPagination();
+                return;
+            } else {
+                document.getElementById("series-count").innerText = resultProducts.length;
+            }
+
+            pageProducts.forEach(prod => {
+                const cat = catMap[prod.category_name];
+                const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series_name)}&type=${encodeURIComponent(prod.type_name)}&product=${encodeURIComponent(prod.product_name)}`;
+                gridRow.innerHTML += `
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-product-wrapper">
+                        <a href="${detailUrl}">
+                            <div class="product-img">
+                                <img src="${prod.image}" alt="">
+                            </div>
+                            <div class="product-description">
+                                <h6>${prod.product_name} - ${prod.series_name}</h6>
+                                <div style="font-size:13px;">${prod.type_name}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                `;
+            });
+
+            renderPagination();
+            // 可选：翻页回到顶部
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function renderPagination() {
+            const total = resultProducts.length;
+            const totalPages = Math.ceil(total / pageSize);
+            const paginationUl = document.querySelector('.pagination');
+            if (!paginationUl) return;
+            paginationUl.innerHTML = "";
+
+            if (totalPages <= 1) {
+                paginationUl.style.display = "none";
+                return;
+            }
+            paginationUl.style.display = "";
+
+            // 上一页
+            paginationUl.innerHTML += `
+                <li class="page-item${currentPage === 1 ? ' disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage - 1}"><i class="fa fa-angle-left"></i></a>
+                </li>
+            `;
+
+            // 页码
+            let pageButtons = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pageButtons.push(i);
+            } else {
+                if (currentPage <= 4) {
+                    pageButtons = [1,2,3,4,5,"...",totalPages];
+                } else if (currentPage >= totalPages - 3) {
+                    pageButtons = [1,"...",totalPages-4,totalPages-3,totalPages-2,totalPages-1,totalPages];
+                } else {
+                    pageButtons = [1,"...",currentPage-1,currentPage,currentPage+1,"...",totalPages];
+                }
+            }
+            pageButtons.forEach(num => {
+                if (num === "...") {
+                    paginationUl.innerHTML += `<li class="page-item disabled"><a class="page-link" href="#">...</a></li>`;
+                } else {
+                    paginationUl.innerHTML += `
+                        <li class="page-item${currentPage === num ? ' active' : ''}">
+                            <a class="page-link" href="#" data-page="${num}">${num}</a>
+                        </li>
+                    `;
+                }
+            });
+
+            // 下一页
+            paginationUl.innerHTML += `
+                <li class="page-item${currentPage === totalPages ? ' disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage + 1}"><i class="fa fa-angle-right"></i></a>
+                </li>
+            `;
+
+            // 页码点击事件
+            paginationUl.querySelectorAll('a[data-page]').forEach(a => {
+                a.onclick = function(e) {
+                    e.preventDefault();
+                    const p = Number(a.getAttribute("data-page"));
+                    if (!isNaN(p) && p >= 1 && p <= totalPages && p !== currentPage) {
+                        renderPage(p);
+                    }
+                }
+            });
+        }
+    });
     </script>
+
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         // 搜索功能

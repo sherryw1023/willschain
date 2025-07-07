@@ -154,114 +154,129 @@
     </div> -->
     <!-- ##### Right Side Cart End ##### -->
 
-    <!-- ##### Single Product Details Area Start ##### -->
-    <section class="single_product_details_area d-flex align-items-center" style="margin-top: 150px;margin-bottom: 50px;">
+    <div id="loading-indicator" style="
+    position:fixed; 
+    left:0; 
+    right:0; 
+    top:0; 
+    bottom:0; 
+    background:#fff; 
+    z-index:9999; 
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;">
+        Loading...
+    </div>
+    <div id="main-content" style="display:none;"></div>
+        <!-- ##### Single Product Details Area Start ##### -->
+        <section class="single_product_details_area d-flex align-items-center" style="margin-top: 150px;margin-bottom: 50px;">
 
-        <!-- Single Product Thumb -->
-        <div id="main-image-block" style="width:500px; margin:0 auto;">
-            <img id="main-product-image" src="" alt="" style="width:500px;height:400px;object-fit:contain;border:1px solid #eee;background:#fafbfc;border: none;">
-            <div class="thumb-carousel-container" style="display:flex;align-items:center;justify-content:center;margin-top:14px;">
-                <button id="thumb-carousel-prev" class="carousel-arrow-btn" aria-label="Prev">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                        <path d="M14 17L8 11L14 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <div id="thumb-carousel-list" style="display:flex;gap:6px;overflow:hidden;width:210px;"></div>
-                <button id="thumb-carousel-next" class="carousel-arrow-btn" aria-label="Next">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                        <path d="M8 5L14 11L8 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-
-
-        <!-- Single Product Description -->
-        <div class="single_product_desc clearfix">
-            <span></span>
-            <h2></h2>
-            <h4></h4>
-            <!-- <p class="product-price"><span class="old-price">$65.00</span> $49.00</p> -->
-            <div class="widget chain-finder-widget finder-box-bordered mb-50" style="margin-top:30px; max-width:450px; width:100%;">
-                <h6 class="widget-title mb-15">Chain Finder</h6>
-                <div class="finder-desc" style="font-size: 13px; color: #666; margin-bottom: 10px;">
-                    Search by tire size to find the right chains for your vehicle.
-                </div>
-                <form class="finder-form" style="display: flex; gap: 6px;">
-                    <input type="text" placeholder="Enter Tire Size" style="flex: 2; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 15px;">
-                    <button type="submit" style="flex: none; padding: 5px 12px; border-radius: 4px; border: none; background: #1f2d44; color: #fff; font-weight: bold; font-size: 15px; ">Find</button>
-                </form>
-                <div class="finder-help" id="finder-help" style="font-size: 15px; color: #000; margin-top: 12px; cursor: pointer; display: flex; align-items: center;">
-                    <span class="info-bang-circle" style="display:inline-block; width:32px; height:32px; background:#1f2d44; color:#fff; border-radius:50%; text-align:center; line-height:32px; font-weight:bold; margin-right:8px;">!</span>
-                    <span class="help-link-text" style="color:#000; font-size: 13px;">How do I find my tire size?</span>
-                </div>
-                <div class="tire-size-popup" id="tire-size-popup" style="display: none; margin-top: 6px;">
-                    <img src="img/size chart.png" alt="Tire Size Guide" style="max-width: 50%;" />
+            <!-- Single Product Thumb -->
+            <div id="main-image-block" style="width:500px; margin:0 auto;">
+                <img id="main-product-image" src="" alt="" style="width:500px;height:400px;object-fit:contain;border:1px solid #eee;background:#fafbfc;border: none;">
+                <div class="thumb-carousel-container" style="display:flex;align-items:center;justify-content:center;margin-top:14px;">
+                    <button id="thumb-carousel-prev" class="carousel-arrow-btn" aria-label="Prev">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M14 17L8 11L14 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div id="thumb-carousel-list" style="display:flex;gap:6px;overflow:hidden;width:210px;"></div>
+                    <button id="thumb-carousel-next" class="carousel-arrow-btn" aria-label="Next">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M8 5L14 11L8 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
-            <!-- Form -->
-            <!-- <form class="cart-form clearfix" method="post"> -->
-                <!-- Select Box -->
-                <!-- <div class="select-box d-flex mt-50 mb-30">
-                    <select name="select" id="productSize" class="mr-5">
-                        <option value="value">Size: XL</option>
-                        <option value="value">Size: X</option>
-                        <option value="value">Size: M</option>
-                        <option value="value">Size: S</option>
-                    </select>
-                    <select name="select" id="productColor">
-                        <option value="value">Color: Black</option>
-                        <option value="value">Color: White</option>
-                        <option value="value">Color: Red</option>
-                        <option value="value">Color: Purple</option>
-                    </select>
-                </div> -->
-                <!-- Cart & Favourite Box -->
-                <!-- <div class="cart-fav-box d-flex align-items-center"> -->
-                    <!-- Cart -->
-                    <!-- <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button> -->
-                    <!-- Favourite -->
-                    <!-- <div class="product-favourite ml-4">
-                        <a href="#" class="favme fa fa-heart"></a>
+
+
+            <!-- Single Product Description -->
+            <div class="single_product_desc clearfix">
+                <span></span>
+                <h2></h2>
+                <h4></h4>
+                <!-- <p class="product-price"><span class="old-price">$65.00</span> $49.00</p> -->
+                <div class="widget chain-finder-widget finder-box-bordered mb-50" style="margin-top:30px; max-width:450px; width:100%;">
+                    <h6 class="widget-title mb-15">Chain Finder</h6>
+                    <div class="finder-desc" style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                        Search by tire size to find the right chains for your vehicle.
+                    </div>
+                    <form class="finder-form" style="display: flex; gap: 6px;">
+                        <input type="text" placeholder="Enter Tire Size" style="flex: 2; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 15px;">
+                        <button type="submit" style="flex: none; padding: 5px 12px; border-radius: 4px; border: none; background: #1f2d44; color: #fff; font-weight: bold; font-size: 15px; ">Find</button>
+                    </form>
+                    <div class="finder-help" id="finder-help" style="font-size: 15px; color: #000; margin-top: 12px; cursor: pointer; display: flex; align-items: center;">
+                        <span class="info-bang-circle" style="display:inline-block; width:32px; height:32px; background:#1f2d44; color:#fff; border-radius:50%; text-align:center; line-height:32px; font-weight:bold; margin-right:8px;">!</span>
+                        <span class="help-link-text" style="color:#000; font-size: 13px;">How do I find my tire size?</span>
+                    </div>
+                    <div class="tire-size-popup" id="tire-size-popup" style="display: none; margin-top: 6px;">
+                        <img src="img/size chart.png" alt="Tire Size Guide" style="max-width: 50%;" />
                     </div>
                 </div>
-            </form> -->
-        </div>
-    </section>
-    <!-- ##### Single Product Details Area End ##### -->
 
-    <!-- ====== Description/Product Intro Section Start ====== -->
-    <section class="series-intro-area" style="margin-bottom:40px;">
-        <div id="series-types-detail"></div>
-    </section>
-    <!-- ====== Description/Product Intro Section End ====== -->
+                <!-- Form -->
+                <!-- <form class="cart-form clearfix" method="post"> -->
+                    <!-- Select Box -->
+                    <!-- <div class="select-box d-flex mt-50 mb-30">
+                        <select name="select" id="productSize" class="mr-5">
+                            <option value="value">Size: XL</option>
+                            <option value="value">Size: X</option>
+                            <option value="value">Size: M</option>
+                            <option value="value">Size: S</option>
+                        </select>
+                        <select name="select" id="productColor">
+                            <option value="value">Color: Black</option>
+                            <option value="value">Color: White</option>
+                            <option value="value">Color: Red</option>
+                            <option value="value">Color: Purple</option>
+                        </select>
+                    </div> -->
+                    <!-- Cart & Favourite Box -->
+                    <!-- <div class="cart-fav-box d-flex align-items-center"> -->
+                        <!-- Cart -->
+                        <!-- <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button> -->
+                        <!-- Favourite -->
+                        <!-- <div class="product-favourite ml-4">
+                            <a href="#" class="favme fa fa-heart"></a>
+                        </div>
+                    </div>
+                </form> -->
+            </div>
+        </section>
+        <!-- ##### Single Product Details Area End ##### -->
 
-    <section style="margin-bottom:60px;">
-        <div id="series-types-extra-detail"></div>
-    </section>
+        <!-- ====== Description/Product Intro Section Start ====== -->
+        <section class="series-intro-area" style="margin-bottom:40px;">
+            <div id="series-types-detail"></div>
+        </section>
+        <!-- ====== Description/Product Intro Section End ====== -->
+
+        <section style="margin-bottom:60px;">
+            <div id="series-types-extra-detail"></div>
+        </section>
 
 
-    <!-- ##### Related Products Area Start ##### -->
-    <section class="related_products_area section-padding-80 clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center">
-                        <h2>Products Related to This Item</h2>
+        <!-- ##### Related Products Area Start ##### -->
+        <section class="related_products_area section-padding-80 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading text-center">
+                            <h2>Products Related to This Item</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="related-products-slides owl-carousel"></div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="related-products-slides owl-carousel"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Related Products Area End ##### -->
-
+        </section>
+        <!-- ##### Related Products Area End ##### -->
+    </div>
 
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
@@ -628,6 +643,12 @@
     };
 
     document.addEventListener('DOMContentLoaded', function () {
+        const loadingDiv = document.getElementById('loading-indicator');
+        const mainContent = document.getElementById('main-content');
+        // 初始只显示loading
+        loadingDiv.style.display = '';
+        mainContent.style.display = 'none';
+
         const seriesName = decodeURIComponent(getSeriesFromUrl());
         const catName = getCategoryFromUrl()
         const typeName = decodeURIComponent(getTypeFromUrl());
@@ -647,6 +668,8 @@
                 const category = data.categories[0];
                 const targetSerie = category.series[0];
                 const targetCategory = category.category_name;
+                loadingDiv.style.display = 'none';
+                mainContent.style.display = '';
                 if (!targetSerie) {
                     document.querySelector('.single_product_desc').innerHTML = "<h2>Series not found.</h2>";
                     return;
@@ -775,7 +798,8 @@
 
             })
             .catch(e => {
-                document.querySelector('.single_product_desc').innerHTML = "<h2>Failed to load details.</h2>";
+                loadingDiv.innerHTML = '<span style="color:red;">Failed to load.</span>';
+                mainContent.style.display = 'none';
             });
             
 
