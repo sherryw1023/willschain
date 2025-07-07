@@ -678,8 +678,16 @@
                             '<div style="color:#a00;text-align:center">No details for this type.</div>';
                     }
                 } else {
-                    document.getElementById('series-types-detail').style.display = '';
-                    renderSeriesTypesDetail(targetSerie);
+                    // 只在有type_description时渲染
+                    const hasDesc = (targetSerie.types || []).some(
+                        t => t.type_description && t.type_description.trim() !== ""
+                    );
+                    if (hasDesc) {
+                        document.getElementById('series-types-detail').style.display = '';
+                        renderSeriesTypesDetail(targetSerie);
+                    } else {
+                        document.getElementById('series-types-detail').style.display = 'none';
+                    }
                     renderSeriesTypesExtraDetail(targetSerie);
                 }
 
