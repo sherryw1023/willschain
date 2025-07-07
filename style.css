@@ -466,3 +466,12 @@ body {
         align-items: center;
     }
 }
+
+#loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;    /* 或 auto，看你内容多少 */
+    font-size: 2rem;
+    background: #fff; /* 可选，让内容区是白底 */
+}

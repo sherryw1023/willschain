@@ -154,18 +154,7 @@
     </div> -->
     <!-- ##### Right Side Cart End ##### -->
 
-    <div id="loading-indicator" style="
-    position:fixed; 
-    left:0; 
-    right:0; 
-    top:0; 
-    bottom:0; 
-    background:#fff; 
-    z-index:9999; 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:2rem;">
+    <div id="loading-indicator" style="display: flex; align-items: center; justify-content: center; height: 400px; font-size:2rem;">
         Loading...
     </div>
     <div id="main-content" style="display:none;"></div>
@@ -791,11 +780,8 @@
                     }
                 };
 
-
                 // 初始化
                 setMainImage(0);
-                
-
             })
             .catch(e => {
                 loadingDiv.innerHTML = '<span style="color:red;">Failed to load.</span>';

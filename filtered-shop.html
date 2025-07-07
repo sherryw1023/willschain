@@ -494,12 +494,13 @@
             .then(res => res.json())
             .then(data => {
                 resultProducts = [];
-                // 检查categories是否存在且有内容
+                // 检查categories是否存在且有内容（没有找到对应size的产品）
                 if (!data.categories || !Array.isArray(data.categories) || data.categories.length === 0) {
                     // 查无数据，也不是接口异常
                     loadingDiv.style.display = 'none';
                     gridRow.style.display = '';
                     document.getElementById("series-count").innerText = 0;
+                    // 如果没有找到对应size的产品，显示提示信息
                     gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for tire size <b>${searchValueRaw}</b>.</p></div>`;
                     renderPagination();
                     return;
