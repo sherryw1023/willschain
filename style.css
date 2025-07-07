@@ -350,7 +350,7 @@
 .owl-carousel .owl-nav button:focus { outline: none; }
 
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     #series-types-detail > div {
         flex-direction: column !important;
         align-items: center;
@@ -368,7 +368,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .type-detail-section .slide-img-wrapper,
   .type-detail-section .slide-img-wrapper img {
     width: 90vw !important;
@@ -450,4 +450,19 @@ body {
 
 .product-description > div {
     color: #888;
+}
+
+@media (max-width: 768px) {
+    .chain-finder-widget {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        float: none !important;
+        display: block !important;
+    }
+    /* 你如果还觉得不够正中，可以试试加上下面这句 */
+    .single_product_desc {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
