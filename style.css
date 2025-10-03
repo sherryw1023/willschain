@@ -475,3 +475,9 @@ body {
     font-size: 2rem;
     background: #fff; /* 可选，让内容区是白底 */
 }
+
+.pagination .page-item.active .page-link {
+    background-color: #39639b !important;  /* 你想要的背景色 */
+    border-color: #39639b !important;      /* 你想要的边框色 */
+    color: #fff !important;                /* 你想要的字体色 */
+}
