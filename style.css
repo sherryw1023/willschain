@@ -484,12 +484,13 @@ body {
 
 .loading-overlay {
     position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 85px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgba(255, 255, 255, 0.96);
-    z-index: 99999;
-    display: flex;
+    z-index: 9999;
+    display: none;
     align-items: center;
     justify-content: center;
 }
