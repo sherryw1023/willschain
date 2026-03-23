@@ -185,33 +185,22 @@
     <!-- ##### Right Side Cart End ##### -->
 
     <!-- ##### Blog Wrapper Area Start ##### -->
-    <div class="single-blog-wrapper">
-
-        <!-- Single Blog Post Thumb -->
-        <!-- <div class="single-blog-post-thumb">
-            <img src="img/bg-img/willschain-bg-1.png" alt="">
-        </div> -->
-
+    <section class="factory-media-section" style="padding: 80px 0;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
-                    <div class="regular-page-content-wrapper section-padding-80">
-                        <div class="regular-page-text">
-                            <h2>Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</h2>
-                            <p>Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin. Praesent at tempus lectus, eleifend blandit felis. Fusce augue arcu, consequat a nisl aliquet, consectetur elementum turpis. Donec iaculis lobortis nisl, et viverra risus imperdiet eu. Etiam mollis posuere elit non sagittis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis arcu a magna sodales venenatis. Integer non diam sit amet magna luctus mollis ac eu nisi. In accumsan tellus ut dapibus blandit.</p>
-
-                            <blockquote>
-                                <h6><i class="fa fa-quote-left" aria-hidden="true"></i> Quisque sagittis non ex eget vestibulum. Sed nec ultrices dui. Cras et sagittis erat. Maecenas pulvinar, turpis in dictum tincidunt, dolor nibh lacinia lacus.</h6>
-                                <span>Liam Neeson</span>
-                            </blockquote>
-
-                            <p>Praesent ac magna sed massa euismod congue vitae vitae risus. Nulla lorem augue, mollis non est et, eleifend elementum ante. Nunc id pharetra magna. Praesent vel orci ornare, blandit mi sed, aliquet nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="factory-gallery-label" style="text-align:center; margin-bottom:30px;">
+                HANGZHOU WILLS CHAIN VIDEO
             </div>
+
+            <div class="factory-video-wrap">
+                <video class="factory-video" controls preload="metadata" playsinline>
+                    <source src="https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/6%E6%9C%884%E6%97%A5.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div id="factory-gallery-detail"></div>
         </div>
-    </div>
+    </section>
     <!-- ##### Blog Wrapper Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
@@ -230,6 +219,7 @@
                             <ul>
                                 <li><a href="shop.html">Shop</a></li>
                                 <!-- <li><a href="blog.html">Blog</a></li> -->
+                                 <li><a href="about.html">About</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </div>
@@ -306,6 +296,96 @@
     <!-- Active js -->
     <script src="js/active.js"></script>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const factoryImages = [
+            'https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/%E7%BB%84+2.png',
+                'https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/%E7%BB%84+3.png',
+                'https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/%E7%BB%84+4.png',
+                'https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/%E7%BB%84+5.png',
+                'https://willschain.s3.us-west-1.amazonaws.com/factory_info/%E8%A7%86%E9%A2%91%E5%9B%BE%E7%89%87/%E7%BB%84+6.png'
+        ];
+
+        const container = document.getElementById('factory-gallery-detail');
+        if (!container || !factoryImages.length) return;
+
+        let currentIdx = 0;
+        let timer = null;
+
+        const section = document.createElement('div');
+        section.className = 'factory-gallery-section';
+
+        const label = document.createElement('div');
+        label.className = 'factory-gallery-label';
+        label.textContent = 'FACTORY & WORKSHOP PHOTOS';
+        section.appendChild(label);
+
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'factory-gallery-img-wrap';
+
+        function makeSideImg(src) {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'factory-gallery-side-img';
+            img.draggable = false;
+            return img;
+        }
+
+        const leftImg = makeSideImg(factoryImages[(factoryImages.length - 1) % factoryImages.length]);
+        const mainImg = document.createElement('img');
+        mainImg.src = factoryImages[0];
+        mainImg.className = 'factory-gallery-main-img';
+
+        const rightImg = makeSideImg(factoryImages[1 % factoryImages.length]);
+
+        imgWrap.appendChild(leftImg);
+        imgWrap.appendChild(mainImg);
+        imgWrap.appendChild(rightImg);
+
+        const thumbsWrap = document.createElement('div');
+        thumbsWrap.className = 'factory-gallery-thumbs';
+
+        factoryImages.forEach((imgSrc, i) => {
+            const thumb = document.createElement('img');
+            thumb.src = imgSrc;
+            if (i === 0) thumb.classList.add('active');
+
+            thumb.addEventListener('click', function () {
+                currentIdx = i;
+                updateImages();
+                resetTimer();
+            });
+
+            thumbsWrap.appendChild(thumb);
+        });
+
+        function updateImages() {
+            mainImg.src = factoryImages[currentIdx];
+            leftImg.src = factoryImages[(currentIdx - 1 + factoryImages.length) % factoryImages.length];
+            rightImg.src = factoryImages[(currentIdx + 1) % factoryImages.length];
+
+            Array.from(thumbsWrap.children).forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === currentIdx);
+            });
+        }
+
+        function nextImage() {
+            currentIdx = (currentIdx + 1) % factoryImages.length;
+            updateImages();
+        }
+
+        function resetTimer() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(nextImage, 4000);
+        }
+
+        section.appendChild(imgWrap);
+        section.appendChild(thumbsWrap);
+        container.appendChild(section);
+
+        resetTimer();
+    });
+    </script>
 </body>
 
 </html>
