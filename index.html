@@ -68,7 +68,7 @@
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </li> -->
-                            <!-- <li><a href="blog.html">Blog</a></li> -->
+                            <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
@@ -529,7 +529,12 @@
         const container = document.querySelector('.popular-products-slides');
         if (!container) return;
 
-        container.innerHTML = '<div style="color:#999;text-align:center">Loading...</div>';
+        container.innerHTML = `
+            <div style="width:100%;text-align:center;padding:40px 0;color:#666;">
+                <div class="loading-spinner" style="margin:0 auto 12px;"></div>
+                <div>Loading popular products...</div>
+            </div>
+        `;
 
         // 2. 加载 JSON
         //'https://zt2c36v495.execute-api.us-west-1.amazonaws.com/get-products'

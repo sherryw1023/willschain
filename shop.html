@@ -66,8 +66,8 @@
                                     <li><a href="regular-page.html">Regular Page</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="blog.html">Blog</a></li> -->
+                            </li>-->
+                            <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
@@ -485,7 +485,7 @@
         };
         function getCategoryFromUrl() {
             const params = new URLSearchParams(window.location.search);
-            return params.get("cat") || "";
+            return params.get("cat") || 'all';
         }
         // 1. 获取cat参数
         const cat = getCategoryFromUrl();
@@ -587,7 +587,7 @@
         function renderPagination() {
             const total = allSeries.length;
             const totalPages = Math.ceil(total / pageSize);
-            const paginationUl = document.getElementById('pagination-ul');
+            const paginationUl = document.querySelector('.pagination');
             if (!paginationUl) return;
             paginationUl.innerHTML = "";
 
