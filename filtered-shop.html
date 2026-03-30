@@ -186,10 +186,11 @@
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
-            <div class="row h-100 align-items-center">
+            <div class="row h-100 align-items-end">
                 <div class="col-12">
                     <div class="page-title text-center">
                         <h2 id="shop-title">Tire Chain Search Results</h2>
+                        <p id="searched-tire-size" class="searched-tire-size"></p>
                     </div>
                 </div>
             </div>
@@ -485,6 +486,10 @@
         // 1. 取URL参数
         const params = new URLSearchParams(window.location.search);
         const searchValueRaw = params.get('size') || "";
+        const tireSizeText = document.getElementById('searched-tire-size');
+        if (tireSizeText && searchValueRaw) {
+            tireSizeText.textContent = searchValueRaw;
+        }
         const searchValueNum = searchValueRaw.replace(/\D/g, "");
 
         // 分页参数

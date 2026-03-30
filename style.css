@@ -664,3 +664,14 @@ body.loading {
         height: 48px;
     }
 }
+
+
+.searched-tire-size {
+    margin-top: 8px;
+    font-size: 28px;
+    color: #666;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
