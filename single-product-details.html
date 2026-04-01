@@ -377,68 +377,119 @@
         container.innerHTML = '';
         if (types.length === 0) return;
 
-        // 系列大标题
-        const section = document.createElement('div');
-        section.classList.add("section-heading", "text-center");
-        const title = document.createElement('h2');
-        title.textContent = (targetSerie.series_name || '').toUpperCase() + " CAR CHAIN";
-        container.style.display = 'flex';
-        container.style.flexDirection = 'column';
-        container.style.alignItems = 'center';
-        container.style.justifyContent = 'center';
+        const CARD_WIDTH = 340;
+        const CARD_MAX_WIDTH = 0.95;
+        const GAP = 28;
+        const SIDE_PADDING = 20;
 
-        container.appendChild(title);
+        function getBestItemsPerRow(total, availableWidth) {
+            if (total <= 1) return 1;
 
-        // 横排卡片区
-        const list = document.createElement('div');
-        list.style.display = 'flex';
-        list.style.justifyContent = types.length === 1 ? 'center' : 'flex-start';
-        list.style.alignItems = 'flex-start';
-        list.style.flexWrap = 'wrap';
-        list.style.gap = '40px';
-        container.appendChild(list);
+            const divisors = [];
+            for (let i = 1; i <= total; i++) {
+                if (total % i === 0) divisors.push(i);
+            }
 
-        types.forEach(type => {
-            // 描述换行
-            const descList = (type.type_description || '')
-                .split(';')
-                .map(line => line.trim())
-                .filter(Boolean)
-                .map(line => `<div>${line}</div>`)
-                .join('');
+            let best = 1;
+            for (const n of divisors) {
+                const requiredWidth = n * CARD_WIDTH + (n - 1) * GAP;
+                if (requiredWidth <= availableWidth) {
+                    best = n;
+                }
+            }
+            return best;
+        }
 
-            // 卡片
-            const card = document.createElement('div');
-            card.style.display = 'flex';
-            card.style.flexDirection = 'column';
-            card.style.alignItems = 'center';
-            card.style.width = '340px';
-            card.style.maxWidth = '95vw';
+        function build() {
+            container.innerHTML = '';
 
-            // 图片
-            const img = document.createElement('img');
-            img.src = (type.type_images && type.type_images[0]) || '';
-            img.alt = type.type_name;
-            img.style.width = '280px';
-            img.style.height = '280px';
-            img.style.objectFit = 'contain';
+            const title = document.createElement('h2');
+            title.textContent = (targetSerie.series_name || '').toUpperCase() + " CAR CHAIN";
+            title.style.textAlign = 'center';
+            title.style.marginBottom = '28px';
+            container.appendChild(title);
 
-            // 文本区
-            const txt = document.createElement('div');
-            txt.style.background = '#f6f5f7';
-            txt.style.marginTop = '32px';
-            txt.style.textAlign = 'center';
-            txt.style.padding = '28px 12px';
-            txt.style.width = '100%';
-            txt.innerHTML = `<div style="font-size:1.75rem;letter-spacing:2px;margin-bottom:18px;font-weight:550;font-family:'Ubuntu',sans-serif;">${type.type_name.replace(/^Type\s/i,'')}</div>
-                <div style="color:#555;font-size:1.1rem;line-height:1.9;letter-spacing:1px;font-family:'Ubuntu',sans-serif;">
-                    ${descList}
-                </div>`;
-            card.appendChild(img);
-            card.appendChild(txt);
-            list.appendChild(card);
-        });
+            const outer = document.createElement('div');
+            outer.style.width = '100%';
+            outer.style.display = 'flex';
+            outer.style.justifyContent = 'center';
+            outer.style.padding = `0 ${SIDE_PADDING}px`;
+            outer.style.boxSizing = 'border-box';
+            container.appendChild(outer);
+
+            const availableWidth = Math.max(320, outer.clientWidth - SIDE_PADDING * 2);
+            const itemsPerRow = getBestItemsPerRow(types.length, availableWidth);
+
+            const grid = document.createElement('div');
+            grid.style.display = 'grid';
+            grid.style.gridTemplateColumns = `repeat(${itemsPerRow}, minmax(0, ${CARD_WIDTH}px))`;
+            grid.style.gap = `${GAP}px`;
+            grid.style.justifyContent = 'center';
+            grid.style.alignItems = 'start';
+            grid.style.width = 'fit-content';
+            grid.style.maxWidth = '100%';
+
+            types.forEach(type => {
+                const descList = (type.type_description || '')
+                    .split(';')
+                    .map(line => line.trim())
+                    .filter(Boolean)
+                    .map(line => `<div>${line}</div>`)
+                    .join('');
+
+                const card = document.createElement('div');
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.alignItems = 'center';
+                card.style.width = '100%';
+                card.style.maxWidth = `${CARD_WIDTH}px`;
+
+                const img = document.createElement('img');
+                img.src = (type.type_images && type.type_images[0]) || '';
+                img.alt = type.type_name || '';
+                img.style.width = '200px';
+                img.style.height = '200px';
+                img.style.maxWidth = `${CARD_MAX_WIDTH * 100}%`;
+                img.style.objectFit = 'contain';
+
+                const txt = document.createElement('div');
+                txt.style.background = '#f6f5f7';
+                txt.style.marginTop = '32px';
+                txt.style.textAlign = 'center';
+                txt.style.padding = '20px 10px';
+                txt.style.width = '100%';
+                txt.style.boxSizing = 'border-box';
+                txt.innerHTML = `
+                    <div style="font-size:1.4rem;letter-spacing:2px;margin-bottom:18px;font-weight:550;font-family:'Montserrat',sans-serif;">
+                        ${(type.type_name || '').replace(/^Type\s/i, '')}
+                    </div>
+                    <div style="color:#555;font-size:0.95rem;line-height:1.9;letter-spacing:0.5px;font-family:'Inter',sans-serif;">
+                        ${descList}
+                    </div>
+                `;
+
+                card.appendChild(img);
+                card.appendChild(txt);
+                grid.appendChild(card);
+            });
+
+            outer.appendChild(grid);
+        }
+
+        build();
+
+        if (window._seriesTypesResizeHandler) {
+            window.removeEventListener('resize', window._seriesTypesResizeHandler);
+        }
+
+        let resizeTimer = null;
+        window._seriesTypesResizeHandler = function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(build, 120);
+        };
+        window.addEventListener('resize', window._seriesTypesResizeHandler);
     }
+
 
     function renderSeriesTypesExtraDetail(targetSerie) {
         window._typeSectionTimers = window._typeSectionTimers || [];
