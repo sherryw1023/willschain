@@ -675,3 +675,14 @@ body.loading {
     letter-spacing: 0;
 }
 
+.single_product_details_area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* ⭐ 关键 */
+}
+
+.single_product_desc {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+}
