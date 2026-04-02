@@ -169,21 +169,35 @@
         <section class="single_product_details_area d-flex align-items-center" style="margin-top: 150px;margin-bottom: 50px;">
 
             <!-- Single Product Thumb -->
-            <div id="main-image-block" style="width:500px; margin:0 auto;">
+            <div id="main-image-block" style="max-width:500px; width:100%; margin:0 auto;">
                 <img id="main-product-image" src="" alt="" style="width:500px;height:400px;object-fit:contain;border:1px solid #eee;background:#fafbfc;border: none;">
-                <div class="thumb-carousel-container" style="display:flex;align-items:center;justify-content:center;margin-top:14px;">
-                    <button id="thumb-carousel-prev" class="carousel-arrow-btn" aria-label="Prev">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <path d="M14 17L8 11L14 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <div id="thumb-carousel-list" style="display:flex;gap:6px;overflow:hidden;width:210px;"></div>
-                    <button id="thumb-carousel-next" class="carousel-arrow-btn" aria-label="Next">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <path d="M8 5L14 11L8 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
+                
+                    <div id="thumb-carousel-container" style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        margin-top:14px;
+                        width:500px;
+                        max-width:100%;
+                        padding:0 12px;
+                        box-sizing:border-box;
+                    ">
+
+                        <button id="thumb-carousel-prev" class="carousel-arrow-btn" aria-label="Prev" style="flex:0 0 40px;">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                                <path d="M14 17L8 11L14 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <div id="thumb-carousel-list" style="display:flex;gap:10px;overflow:hidden;flex:1;min-width:0; margin: 0 3px;"></div>
+
+                        <button id="thumb-carousel-next" class="carousel-arrow-btn" aria-label="Next" style="flex:0 0 40px;">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                                <path d="M8 5L14 11L8 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                    </div>
             </div>
 
 
@@ -556,6 +570,11 @@
             mainImg.style.objectFit = 'contain';
             mainImg.style.boxShadow = '0 4px 32px 0 #ededf7';
             mainImg.style.background = '#fff';
+            mainImg.style.cursor = 'zoom-in';
+
+            mainImg.addEventListener('click', () => {
+                openLightbox(mainImg.src, type.type_name || 'Detail image');
+            });
 
             // 侧图
             imgWrap.appendChild(makeSideImg(images[(images.length+images.length-1)%images.length])); // 左侧用上一张
@@ -817,11 +836,19 @@
                 }
                 let currentIdx = 0;
                 let thumbStart = 0;
-                const thumbCount = 3;
+                let thumbCount = 1;
+
+                const THUMB_BOX_SIZE = 60;
+                const THUMB_GAP = 10;
+                const ARROW_BTN_WIDTH = 40;
 
                 // 渲染主图
                 const mainImg = document.getElementById('main-product-image');
                 if (!mainImg) return; // 容错
+                mainImg.style.cursor = 'zoom-in';
+                mainImg.addEventListener('click', function () {
+                    openLightbox(mainImg.src, mainImg.alt || 'Product image');
+                });
                 // function setMainImage(idx) {
                 //     mainImg.src = images[idx];
                 //     currentIdx = idx;
@@ -829,31 +856,70 @@
                 // }
 
                 // 渲染缩略图
+                function getThumbCount() {
+                    const container = document.getElementById('thumb-carousel-container');
+                    const list = document.getElementById('thumb-carousel-list');
+                    if (!container || !list) return 1;
+
+                    const containerWidth = container.clientWidth;
+                    const listAvailableWidth = containerWidth - ARROW_BTN_WIDTH * 2 - 20;
+
+                    const perThumbWidth = THUMB_BOX_SIZE + THUMB_GAP;
+                    const visibleCount = Math.max(1, Math.floor((listAvailableWidth + THUMB_GAP) / perThumbWidth));
+
+                    return Math.min(images.length, visibleCount);
+                }
                 function setMainImage(idx) {
                     currentIdx = idx;
                     mainImg.src = images[idx];
-                    // 保证缩略图窗口能把当前主图包含进去
+                    thumbCount = getThumbCount();
+
                     if (currentIdx < thumbStart) thumbStart = currentIdx;
-                    if (currentIdx >= thumbStart + thumbCount) thumbStart = currentIdx - thumbCount + 1;
+                    if (currentIdx >= thumbStart + thumbCount) {
+                        thumbStart = currentIdx - thumbCount + 1;
+                    }
+
+                    const maxStart = Math.max(0, images.length - thumbCount);
+                    if (thumbStart > maxStart) thumbStart = maxStart;
+
                     renderThumbs();
                 }
 
                 function renderThumbs() {
                     const thumbList = document.getElementById('thumb-carousel-list');
+                    const container = document.getElementById('thumb-carousel-container');
+                    if (!thumbList || !container) return;
+
+                    thumbCount = getThumbCount();
+                    const maxStart = Math.max(0, images.length - thumbCount);
+                    if (thumbStart > maxStart) thumbStart = maxStart;
+
                     thumbList.innerHTML = '';
+
                     for (let i = thumbStart; i < Math.min(thumbStart + thumbCount, images.length); i++) {
                         thumbList.innerHTML += `
-                            <div class="thumb-block${i === currentIdx ? ' selected' : ''}" 
-                                data-index="${i}" 
-                                style="border:${i===currentIdx?'2px solid #1f2d44':'1px solid #eee'};border-radius:6px;padding:2px;cursor:pointer;width:60px;height:60px;box-sizing:border-box;overflow:hidden;">
-                                <img src="${images[i]}" style="width:100%;height:100%;object-fit:contain;">
+                            <div class="thumb-block${i === currentIdx ? ' selected' : ''}"
+                                data-index="${i}"
+                                style="
+                                    border:${i===currentIdx?'2px solid #1f2d44':'1px solid #eee'};
+                                    border-radius:6px;
+                                    padding:2px;
+                                    cursor:pointer;
+                                    width:${THUMB_BOX_SIZE}px;
+                                    height:${THUMB_BOX_SIZE}px;
+                                    box-sizing:border-box;
+                                    overflow:hidden;
+                                    flex:0 0 ${THUMB_BOX_SIZE}px;
+                                    background:#fff;
+                                ">
+                                <img src="${images[i]}" style="width:100%;height:100%;object-fit:contain;display:block;">
                             </div>
                         `;
                     }
-                    document.getElementById('thumb-carousel-prev').disabled = (thumbStart === 0);
-                    document.getElementById('thumb-carousel-next').disabled = (thumbStart + thumbCount >= images.length);
-                }
 
+                    document.getElementById('thumb-carousel-prev').disabled = (currentIdx === 0);
+                    document.getElementById('thumb-carousel-next').disabled = (currentIdx >= images.length - 1);
+                }
                 // 缩略图点击事件
                 document.getElementById('thumb-carousel-list').onclick = function(e) {
                     const block = e.target.closest('.thumb-block');
@@ -873,6 +939,23 @@
                         setMainImage(currentIdx + 1);
                     }
                 };
+                let thumbResizeTimer = null;
+                window.addEventListener('resize', function () {
+                    clearTimeout(thumbResizeTimer);
+                    thumbResizeTimer = setTimeout(function () {
+                        thumbCount = getThumbCount();
+
+                        if (currentIdx < thumbStart) thumbStart = currentIdx;
+                        if (currentIdx >= thumbStart + thumbCount) {
+                            thumbStart = currentIdx - thumbCount + 1;
+                        }
+
+                        const maxStart = Math.max(0, images.length - thumbCount);
+                        if (thumbStart > maxStart) thumbStart = maxStart;
+
+                        renderThumbs();
+                    }, 120);
+                });
 
                 // 初始化
                 setMainImage(0);
@@ -967,7 +1050,82 @@
         }
     })
     </script>
+    <div id="image-lightbox" style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.78);
+        z-index:99999;
+        align-items:center;
+        justify-content:center;
+        padding:40px;
+        box-sizing:border-box;
+    ">
+        <button id="lightbox-close" type="button" style="
+            position:absolute;
+            top:18px;
+            right:24px;
+            background:transparent;
+            border:none;
+            color:#fff;
+            font-size:42px;
+            line-height:1;
+            cursor:pointer;
+            z-index:2;
+        ">&times;</button>
 
+        <img id="lightbox-image" src="" alt="" style="
+            max-width:90vw;
+            max-height:88vh;
+            object-fit:contain;
+            display:block;
+            box-shadow:0 8px 40px rgba(0,0,0,0.35);
+            background:#fff;
+        ">
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImg = document.getElementById('lightbox-image');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function openLightbox(src, alt = '') {
+            if (!src) return;
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+            lightboxImg.alt = '';
+            document.body.style.overflow = '';
+        }
+
+        window.openLightbox = openLightbox;
+        window.closeLightbox = closeLightbox;
+
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', closeLightbox);
+        }
+
+        if (lightbox) {
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                closeLightbox();
+            }
+        });
+    });
+    </script>
 
 </body>
 
