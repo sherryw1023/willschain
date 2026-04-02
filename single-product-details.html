@@ -738,29 +738,51 @@
 
                 // 填充标题描述
                 document.querySelector('.single_product_desc span').textContent = targetCategory || '';
-                document.querySelector('.single_product_desc h2').textContent = targetSerie.series_name;
+
+                const h2El = document.querySelector('.single_product_desc h2');
+                const h4El = document.querySelector('.single_product_desc h4');
+
+                function buildSeriesUrl(seriesName, catName) {
+                    return `single-product-details.html?cat=${encodeURIComponent(catName)}&series=${encodeURIComponent(seriesName)}`;
+                }
 
                 if (typeName && productName) {
-                    document.querySelector('.single_product_desc h2').textContent = getProductFromUrl()+" - "+targetSerie.series_name;
-                    document.querySelector('.single_product_desc h4').textContent = getTypeFromUrl();
-                    // 隐藏series-types-detail部分
+                    h2El.innerHTML = '';
+
+                    const productText = document.createTextNode(productName + ' - ');
+                    const seriesLink = document.createElement('a');
+                    seriesLink.href = buildSeriesUrl(targetSerie.series_name, catName);
+                    seriesLink.textContent = targetSerie.series_name;
+                    seriesLink.style.color = 'inherit';
+                    seriesLink.style.textDecoration = 'underline';
+                    seriesLink.style.fontSize = 'inherit';
+                    seriesLink.style.fontWeight = 'inherit';
+                    seriesLink.style.fontFamily = 'inherit';
+
+                    h2El.appendChild(productText);
+                    h2El.appendChild(seriesLink);
+
+                    h4El.textContent = getTypeFromUrl();
+
                     document.getElementById('series-types-detail').style.display = 'none';
-                    // 只渲染对应type
+
                     const targetType = (targetSerie.types || []).find(
                         t => t.type_name === typeName
                     );
+
                     if (targetType) {
-                        // 用一个假的targetSerie，只包含这一个type
                         renderSeriesTypesExtraDetail({
                             ...targetSerie,
                             types: [targetType]
                         });
                     } else {
-                        // 没有该type
                         document.getElementById('series-types-extra-detail').innerHTML =
                             '<div style="color:#a00;text-align:center">No details for this type.</div>';
                     }
                 } else {
+                    h2El.textContent = targetSerie.series_name;
+                    h4El.textContent = '';
+
                     // 只在有type_description时渲染
                     const hasDesc = (targetSerie.types || []).some(
                         t => t.type_description && t.type_description.trim() !== ""
