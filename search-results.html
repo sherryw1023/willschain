@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Wills Chain</title>
+
+    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header_area">
+        <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+            <nav class="classy-navbar" id="essenceNav">
+                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="" style="width:24px; height:30px;"></a>
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <div class="classy-menu">
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <div class="classynav">
+                        <ul>
+                            <li><a href="#">Catalog</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop.html?cat=all">All Tire Chains</a></li>
+                                    <li><a href="shop.html?cat=passenger">Passenger Cars</a></li>
+                                    <li><a href="shop.html?cat=light_truck">Light Truck & SUV</a></li>
+                                    <li><a href="shop.html?cat=commercial">Commercial Trucks</a></li>
+                                    <li><a href="shop.html?cat=grader">Loader/Grader</a></li>
+                                    <li><a href="shop.html?cat=tractor">Tractor</a></li>
+                                    <li><a href="shop.html?cat=utility">Industrial/Utility</a></li>
+                                    <li><a href="shop.html?cat=atv">ATV/UTV</a></li>
+                                    <li><a href="shop.html?cat=forestry">Forestry/Skidder</a></li>
+                                    <li><a href="shop.html?cat=accessories">Parts & Accessories</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header-meta d-flex clearfix justify-content-end">
+                <div class="search-area">
+                    <form action="#" method="post" id="headerSearchForm">
+                        <input type="search" name="search" id="headerSearch" placeholder="Type for search">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2 id="shop-title">Tire Chain Search Results</h2>
+                        <p id="searched-query" class="searched-tire-size"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-indicator" class="loading-overlay" style="display:none;">
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+    <div id="main-content" style="display:none;">
+        <section class="shop_grid_area section-padding-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="shop_sidebar_area">
+                            <div class="widget chain-finder-widget finder-box-bordered mb-50">
+                                <h6 class="widget-title mb-15">Chain Finder</h6>
+                                <div class="finder-desc" style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                                    Search by tire size to find the right chains for your vehicle.
+                                </div>
+                                <form class="finder-form" style="display: flex; gap: 6px;">
+                                    <input type="text" placeholder="Enter Tire Size" style="flex: 2; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 15px;">
+                                    <button type="submit" style="flex: none; padding: 5px 12px; border-radius: 4px; border: none; background: #1f2d44; color: #fff; font-weight: bold; font-size: 15px;">Find</button>
+                                </form>
+                                <div class="finder-help" id="finder-help" style="font-size: 15px; color: #000; margin-top: 12px; cursor: pointer; display: flex; align-items: center;">
+                                    <span class="info-bang-circle" style="display:inline-block; width:32px; height:32px; background:#1f2d44; color:#fff; border-radius:50%; text-align:center; line-height:32px; font-weight:bold; margin-right:8px;">!</span>
+                                    <span class="help-link-text" style="color:#000; font-size: 13px;">How do I find my tire size?</span>
+                                </div>
+                                <div class="tire-size-popup" id="tire-size-popup" style="display: none; margin-top: 6px;">
+                                    <img src="img/size chart.png" alt="Tire Size Guide" style="max-width: 100%;" />
+                                </div>
+                            </div>
+
+                            <div class="widget catagory mb-50">
+                                <h6 class="widget-title mb-15">Catagories</h6>
+                                <div class="catagories-menu">
+                                    <ul class="sub-menu collapse show" id="clothing">
+                                        <li><a href="shop.html?cat=all">All Tire Chains</a></li>
+                                        <li><a href="shop.html?cat=passenger">Passenger Cars</a></li>
+                                        <li><a href="shop.html?cat=light_truck">Light Truck & SUV</a></li>
+                                        <li><a href="shop.html?cat=commercial">Commercial Trucks</a></li>
+                                        <li><a href="shop.html?cat=grader">Loader/Grader</a></li>
+                                        <li><a href="shop.html?cat=tractor">Tractor</a></li>
+                                        <li><a href="shop.html?cat=utility">Industrial/Utility</a></li>
+                                        <li><a href="shop.html?cat=atv">ATV/UTV</a></li>
+                                        <li><a href="shop.html?cat=forestry">Forestry/Skidder</a></li>
+                                        <li><a href="shop.html?cat=accessories">Parts & Accessories</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 col-lg-9">
+                        <div class="shop_grid_product_area">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="product-topbar d-flex align-items-center justify-content-between">
+                                        <div class="total-products">
+                                            <p><span id="series-count"></span> products found</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="series-grid"></div>
+                        </div>
+
+                        <nav aria-label="navigation">
+                            <ul class="pagination mt-50 mb-70" id="pagination-ul"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer_area clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="single_widget_area d-flex mb-30">
+                        <div class="footer-logo mr-50">
+                            <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                        </div>
+                        <div class="footer_menu">
+                            <ul>
+                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="single_widget_area mb-30"></div>
+                </div>
+            </div>
+
+            <div class="row align-items-end">
+                <div class="col-12 col-md-6">
+                    <div class="single_widget_area"></div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="single_widget_area"></div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>, distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/classy-nav.min.js"></script>
+    <script src="js/active.js"></script>
+
+    <script>
+    const SEARCH_API_URL = "https://uni9gr2s8g.execute-api.us-west-1.amazonaws.com/default/search-products";
+
+    const catMap = {
+        "All Tire Chains": "all",
+        "Passenger Cars": "passenger",
+        "Light Truck & SUV": "light_truck",
+        "Commercial Trucks": "commercial",
+        "Loader/Grader": "grader",
+        "Tractor": "tractor",
+        "Industrial/Utility": "utility",
+        "ATV/UTV": "atv",
+        "Forestry/Skidder": "forestry",
+        "Parts & Accessories": "accessories"
+    };
+
+    function getCategorySlug(categoryName) {
+        return catMap[categoryName] || "all";
+    }
+
+    function sortSearchResults(results) {
+        return [...results].sort((a, b) => {
+            const a1 = (a.series || "").toLowerCase();
+            const b1 = (b.series || "").toLowerCase();
+            if (a1 !== b1) return a1.localeCompare(b1);
+
+            const a2 = (a.type || "").toLowerCase();
+            const b2 = (b.type || "").toLowerCase();
+            if (a2 !== b2) return a2.localeCompare(b2);
+
+            const a3 = (a.product || "").toLowerCase();
+            const b3 = (b.product || "").toLowerCase();
+            return a3.localeCompare(b3);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const help = document.getElementById('finder-help');
+        const popup = document.getElementById('tire-size-popup');
+        if (help && popup) {
+            help.onclick = function () {
+                popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+            };
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const query = (params.get('q') || "").trim();
+
+        const queryText = document.getElementById('searched-query');
+        const headerSearchInput = document.getElementById('headerSearch');
+        const headerSearchForm = document.getElementById('headerSearchForm');
+
+        if (headerSearchInput && query) {
+            headerSearchInput.value = query;
+        }
+
+        if (queryText) {
+            queryText.textContent = query ? "Keyword: " + query : "";
+        }
+
+        if (headerSearchForm) {
+            headerSearchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const value = (headerSearchInput.value || "").trim();
+                if (!value) return;
+                window.location.href = "search-results.html?q=" + encodeURIComponent(value);
+            });
+        }
+
+        let resultProducts = [];
+        const pageSize = 12;
+        let currentPage = 1;
+
+        const loadingDiv = document.getElementById('loading-indicator');
+        const mainContent = document.getElementById('main-content');
+        const footer = document.querySelector('.footer_area');
+
+        loadingDiv.style.display = 'flex';
+        mainContent.style.display = 'none';
+        document.body.classList.add('loading');
+        if (footer) footer.style.display = 'none';
+
+        if (!query) {
+            loadingDiv.style.display = 'none';
+            mainContent.style.display = '';
+            document.body.classList.remove('loading');
+            if (footer) footer.style.display = '';
+            document.getElementById("series-count").innerText = 0;
+            document.getElementById('series-grid').innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>Please enter a search term.</p></div>`;
+            return;
+        }
+
+        fetch(SEARCH_API_URL + "?q=" + encodeURIComponent(query))
+            .then(res => {
+                if (!res.ok) throw new Error(`search-products HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(searchData => {
+                resultProducts = sortSearchResults((searchData.results || []).map(item => {
+                    return {
+                        ...item,
+                        image: item.type_image || ""
+                    };
+                }));
+
+                loadingDiv.style.display = 'none';
+                mainContent.style.display = '';
+                document.body.classList.remove('loading');
+                if (footer) footer.style.display = '';
+
+                renderPage(1);
+            })
+            .catch(err => {
+                console.error("search-results page error:", err);
+                loadingDiv.style.display = 'flex';
+                loadingDiv.innerHTML = '<span style="color:red;">Failed to load search results.</span>';
+                mainContent.style.display = 'none';
+                document.body.classList.add('loading');
+                if (footer) footer.style.display = 'none';
+            });
+
+        function renderPage(page) {
+            currentPage = page;
+            const gridRow = document.getElementById('series-grid');
+            gridRow.innerHTML = "";
+
+            const start = (page - 1) * pageSize;
+            const end = start + pageSize;
+            const pageProducts = resultProducts.slice(start, end);
+
+            if (resultProducts.length === 0) {
+                document.getElementById("series-count").innerText = 0;
+                gridRow.innerHTML = `<div class="col-12"><p style='text-align:center; margin:2em 0;'>No products found for "<b>${query}</b>".</p></div>`;
+                renderPagination();
+                return;
+            } else {
+                document.getElementById("series-count").innerText = resultProducts.length;
+            }
+
+            pageProducts.forEach(prod => {
+                const cat = getCategorySlug(prod.category);
+                const detailUrl = `single-product-details.html?cat=${cat}&series=${encodeURIComponent(prod.series)}&type=${encodeURIComponent(prod.type || "")}&product=${encodeURIComponent(prod.product || "")}`;
+
+                gridRow.innerHTML += `
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-product-wrapper">
+                        <a href="${detailUrl}">
+                            <div class="product-img">
+                                ${prod.image
+                                    ? `<img src="${prod.image}" alt="">`
+                                    : `<div style="width:100%; height:100%; min-height:220px; display:flex; align-items:center; justify-content:center; background:#f8f8f8; color:#666;">No Image</div>`
+                                }
+                            </div>
+                            <div class="product-description">
+                                <h6>${prod.product || ""} - ${prod.series}</h6>
+                                <div style="font-size:13px;">${prod.type || ""}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                `;
+            });
+
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function renderPagination() {
+            const total = resultProducts.length;
+            const totalPages = Math.ceil(total / pageSize);
+            const paginationUl = document.querySelector('.pagination');
+            if (!paginationUl) return;
+            paginationUl.innerHTML = "";
+
+            if (totalPages <= 1) {
+                paginationUl.style.display = "none";
+                return;
+            }
+            paginationUl.style.display = "";
+
+            paginationUl.innerHTML += `
+                <li class="page-item${currentPage === 1 ? ' disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage - 1}"><i class="fa fa-angle-left"></i></a>
+                </li>
+            `;
+
+            let pageButtons = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pageButtons.push(i);
+            } else {
+                if (currentPage <= 4) {
+                    pageButtons = [1, 2, 3, 4, 5, "...", totalPages];
+                } else if (currentPage >= totalPages - 3) {
+                    pageButtons = [1, "...", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+                } else {
+                    pageButtons = [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+                }
+            }
+
+            pageButtons.forEach(num => {
+                if (num === "...") {
+                    paginationUl.innerHTML += `<li class="page-item disabled"><a class="page-link" href="#">...</a></li>`;
+                } else {
+                    paginationUl.innerHTML += `
+                        <li class="page-item${currentPage === num ? ' active' : ''}">
+                            <a class="page-link" href="#" data-page="${num}">${num}</a>
+                        </li>
+                    `;
+                }
+            });
+
+            paginationUl.innerHTML += `
+                <li class="page-item${currentPage === totalPages ? ' disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage + 1}"><i class="fa fa-angle-right"></i></a>
+                </li>
+            `;
+
+            paginationUl.querySelectorAll('a[data-page]').forEach(a => {
+                a.onclick = function(e) {
+                    e.preventDefault();
+                    const p = Number(a.getAttribute("data-page"));
+                    if (!isNaN(p) && p >= 1 && p <= totalPages && p !== currentPage) {
+                        renderPage(p);
+                    }
+                };
+            });
+        }
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 搜索功能
+        const finderForm = document.querySelector('.finder-form');
+        if (finderForm) {
+            finderForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const input = finderForm.querySelector('input[type="text"]');
+                const searchValueRaw = input.value.trim();
+                if (!searchValueRaw) {
+                    alert("Please enter a tire size!");
+                    return;
+                }
+                // 只保留数字，去掉非数字字符
+                const searchValueNum = searchValueRaw.replace(/\D/g, "");
+
+                if (!searchValueNum) {
+                    alert("Please enter a valid tire size!");
+                    return;
+                }
+                window.location.href = "filtered-shop.html?size=" + encodeURIComponent(searchValueRaw);
+            })
+        }
+    })
+    </script>
+</body>
+</html>

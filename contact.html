@@ -67,7 +67,7 @@
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
+                    <form action="#" method="post" id="headerSearchForm">
                         <input type="search" name="search" id="headerSearch" placeholder="Type for search">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
@@ -326,6 +326,22 @@
     });
     </script>
     <script src="js/map-active.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("headerSearchForm");
+        const input = document.getElementById("headerSearch");
+
+        if (!form || !input) return;
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const value = input.value.trim();
+            if (!value) return;
+
+            window.location.href = "search-results.html?q=" + encodeURIComponent(value);
+        });
+    });
+    </script>
 
 </body>
 
